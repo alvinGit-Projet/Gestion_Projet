@@ -262,6 +262,9 @@ footer{
 #sous .dropdown-item{
     color: white;
 }
+.dropdown-divider{
+    background-color: white;
+}
 
 
 
