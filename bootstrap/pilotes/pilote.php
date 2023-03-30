@@ -7,7 +7,7 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   
-	        <link rel="stylesheet" href="../style_in.css" type="text/css">
+	<link rel="stylesheet" href="../style_in.css" type="text/css">
     <link rel="icon" type="image/png" sizes="16x16" href="../images/profil.png">
     
 	<script>
@@ -74,18 +74,18 @@
 		  	echo "".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom'];
 		  	}
 		  ?>
-		  <a href="#">Mes Favoris</a>
-		  <a href="#">Mes Abonnements</a>
-		  <a href="./utilisateur/parier.php">Parier</a>
-		  <a href="./bd.php">Base de Données</a>
+		  <a href="../utilisateur/favoris.php">Mes Favoris</a>
+		  <a href="../utilisateur/abonnement.php">Mes Abonnements</a>
+		  <a href="../utilisateur/parier.php">Parier</a>
+		  <a href="../bd.php">Base de Données</a>
 
 		  <?php
 		  if (!isset($_SESSION['utilisateur'])){
-		  	echo '<a href="./utilisateur/inscription.php"> Inscription </a>';
-		  	echo '<a href="./utilisateur/connexion.php"> Connexion </a>';
+		  	echo '<a href="../utilisateur/inscription.php"> Inscription </a>';
+		  	echo '<a href="../utilisateur/connexion.php"> Connexion </a>';
 		  	}
 		  else{
-		  	echo '<a href="./utilisateur/deconnexion.php"> deconnexion </a>';
+		  	echo '<a href="../utilisateur/deconnexion.php"> deconnexion </a>';
 		  	}
 		  	
 		  ?>
@@ -104,13 +104,13 @@
 			  <a class="nav-link" href="pilotes.php">Pilotes</a>
 			</li>
 			<li class="nav-item">
-			  <a class="nav-link" href="./gps/gps.php">Grands Prix</a>
+			  <a class="nav-link" href="../gps/gps.php">Grands Prix</a>
 			</li>
 			<li class="nav-item">
-			  <a class="nav-link" href="./circuits/circuits.php">Circuits</a>
+			  <a class="nav-link" href="../circuits/circuits.php">Circuits</a>
 			</li>
 			<li class="nav-item">
-			  <a class="nav-link" href="./constructeurs/constructeurs.php">Constructeurs</a>
+			  <a class="nav-link" href="../constructeurs/constructeurs.php">Constructeurs</a>
 			</li>
 		  </ul>
 		  
@@ -122,47 +122,65 @@
 		</div>
 	  </div>
 	</nav>
+
+
 	
 
 	
 	<!--STATS-->
-	
-    <div class="p-5 bg-secondary text-white text-center">
-        <h2> <?php echo $infos["forename"]." ".$infos["surname"];?></h2>
-    </div>
 
-	
+    <div class="d-flex flex-row" id="title">
+    <div class="p-2">
+    <img  id="p_indi" src= "<?php echo $infos['url_photo']; ?>"  alt='photo du pilote'>
+    </div>
+    <div class="p-2">
+    <h1 id="pilotes_title"> <?php echo $infos["forename"]." ".$infos["surname"];?></h1>
+    </div>
+    </div>
 	
      
-    <div>
-        <div class="container-fluid" id="first" >
-            <div class="row">
-                <div class="col-lg-7" id="stats">
-                    <h2> Statistiques </h2>
-                    <ul class='infos-pilotes'>
-                        <li> Nombre de participations : <?php $rep = $bdd -> query("SELECT COUNT(results.raceId) FROM results WHERE results.driverId=".$infos["driverId"]); $nb = $rep -> fetch(); echo $nb[0];?>
-                        <li> Nombre de victoire : <?php $rep = $bdd -> query("SELECT COUNT(results.raceId) FROM results WHERE results.position=1 AND results.driverId=".$infos["driverId"]); $nb = $rep -> fetch(); echo $nb[0];?>
-                        <li> Position moyenne : <?php $rep = $bdd -> query("SELECT ROUND(AVG(results.position)) FROM results WHERE results.driverId=".$infos["driverId"]); $nb = $rep -> fetch(); echo $nb[0];?>
-                        <li> Temps moyen par tour : <?php $rep = $bdd -> query("SELECT ROUND(AVG(results.milliseconds)/laps) FROM results WHERE results.driverId=".$infos["driverId"]); $nb = $rep -> fetch(); echo afficherTemps($nb[0]);?>
-                        <li> Tour le plus rapide : <?php $rep = $bdd -> query("SELECT results.fastestLapTime FROM results WHERE results.driverId=".$infos["driverId"]." ORDER BY results.fastestLapTime ASC LIMIT 1;"); $ans = $rep-> fetch(); echo $ans[0]; ?>
-                    </ul>
-                </div>
-				
-                <div class="col-lg-5" id="courses"> 
-                <h2> Résultats et records </h2>
-                    <?php 
-                       $rep = $bdd -> query("SELECT COUNT(results.statusId) as nb, status.status FROM results, status WHERE results.driverId=".$infos["driverId"]." AND status.statusId=results.statusId GROUP BY results.statusId");
-                       $ans = $rep -> fetchAll(); 
-                       echo "<ul id='pilotes-liste-course'>";
-                       for($i=0; $i<count($ans); $i++){
-                        echo "<li>".$ans[$i]["nb"]." : ".$ans[$i]["status"]."</li>";
-                       }
-                       echo "</ul>";                        
-                    ?>
-                </div>
-				
-            </div>
+<div>
+    <div class="container-fluid" id="first" >
+        <div class="row">
+        <div class="col-lg-6" id="stats">
+            <h2 id= "code">  <?php if(isset($infos["code"])){ echo $infos["code"]; } ?> </h2>
+            <ul class="list-group list-group-dark" data-bs-theme="dark">
+            <li class="list-group-item list-group-item-dark"> Nom : <?php if(isset($infos["surname"])){ echo $infos["surname"]; } ?> </li>
+            <li class="list-group-item list-group-item-dark"> Prénom : <?php if(isset($infos["forename"])){ echo $infos["forename"]; } ?> </li>
+            <li class="list-group-item list-group-item-dark"> Numéro : <?php if(isset($infos["number"])){ echo $infos["number"]; } ?> </li>
+            <li class="list-group-item list-group-item-dark"> Date de naissance : <?php if(isset($infos["dob"])){ echo $infos["dob"]; } ?> </li>
+            <li class="list-group-item list-group-item-dark"> Nationalité : <?php if(isset($infos["nationality"])){ echo traduireNationalite($infos["nationality"]); } ?> </li>
+            </ul>
         </div>
+
+
+        <div class="col-lg-6" id="courses">
+            <h5> Biographie </h5>
+            <p>
+            <?php $url = $infos["url"];
+                  require_once('../simple_html_dom.php');
+
+                  // Récupérer le contenu de la page Web
+                  $html = file_get_html($url);
+
+                  // Trouver tous les éléments HTML avec la classe "content"
+                  $elements = $html->find('p');
+
+
+                  $i=0;
+                  while($i<3){
+                    echo $elements[$i]->plaintext;
+                    echo "<br>";
+                    $i++;// changer le css balise a
+                  } ?>
+                  <a href= "<?php echo $url; ?>" >  Plus d'infos. </a>
+
+            </p>
+        </div>
+
+
+    </div>
+</div>
 
    
    
@@ -170,21 +188,33 @@
         <div class="container-fluid" id="bio">
             <div class="row">
                 <div class="col-lg-8">
-                    <center><h2> Eléments personnels </h2></center>
                     <ul class="infos-pilotes">
-                        <li> Nom : <?php if(isset($infos["surname"])){ echo $infos["surname"]; } ?> </li>
-                        <li> Prénom : <?php if(isset($infos["forename"])){ echo $infos["forename"]; } ?> </li>
-                        <li> Date de naissance : <?php if(isset($infos["dob"])){ echo $infos["dob"]; } ?> </li>
-                        <li> Nationalité : <?php if(isset($infos["nationality"])){ echo traduireNationalite($infos["nationality"]); } ?> </li>
-                    </ul>
+
+                    <li > Nombre de participations : <?php $rep = $bdd -> query("SELECT COUNT(results.raceId) FROM results WHERE results.driverId=".$infos["driverId"]); $nb = $rep -> fetch(); echo $nb[0];?>
+                                            <li > Nombre de victoire : <?php $rep = $bdd -> query("SELECT COUNT(results.raceId) FROM results WHERE results.position=1 AND results.driverId=".$infos["driverId"]); $nb = $rep -> fetch(); echo $nb[0];?>
+                                            <li > Position moyenne : <?php $rep = $bdd -> query("SELECT ROUND(AVG(results.position)) FROM results WHERE results.driverId=".$infos["driverId"]); $nb = $rep -> fetch(); echo $nb[0];?>
+                                            <li > Temps moyen par tour : <?php $rep = $bdd -> query("SELECT ROUND(AVG(results.milliseconds)/laps) FROM results WHERE results.driverId=".$infos["driverId"]); $nb = $rep -> fetch(); echo afficherTemps($nb[0]);?>
+                                           <li > Tour le plus rapide : <?php $rep = $bdd -> query("SELECT results.fastestLapTime FROM results WHERE results.driverId=".$infos["driverId"]." ORDER BY results.fastestLapTime ASC LIMIT 1;"); $ans = $rep-> fetch(); echo $ans[0]; ?>
+
+                        </ul>
+
+                        <?php
+                                              $rep = $bdd -> query("SELECT COUNT(results.statusId) as nb, status.status FROM results, status WHERE results.driverId=".$infos["driverId"]." AND status.statusId=results.statusId GROUP BY results.statusId");
+                                              $ans = $rep -> fetchAll();
+                                              echo "<ul class='list-group list-group-dark' data-bs-theme='dark'>";
+                                              for($i=0; $i<count($ans); $i++){
+                                                 echo "<li class='list-group-item list-group-item-dark'>".$ans[$i]["nb"]." : ".$ans[$i]["status"]."</li>";
+                                              }
+                                              echo "</ul>";
+                                           ?>
                 </div>
 				
 				
 				
 				
-                <div class="col-lg-4">
+                <div class="col-lg-4" id="div_wiki">
                        <a href="<?php echo $infos["url"];  ?>" target="_blank" class="lien-bdp"><img src="../images/wikipedia.png" id="wiki"> </a>
-        <!--               <a href="#"><img src="../images/insta.png"></a>  -->
+        <!--           <a href="#"><img src="../images/insta.png"></a>  -->
                 </div>
             </div>
         </div>

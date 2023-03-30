@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="fr">
     <head>
-        <title> Inscription </title>
+        <title> Connexion </title>
         <link rel="stylesheet" href="../style_in.css" type="text/css">
 		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">  
         
@@ -17,7 +17,11 @@
 	}
 		</script>
 	
-		
+		<style>
+        	body{
+
+        	}
+        	</style>
         </head> 
     
 	
@@ -82,11 +86,11 @@
 			  <a class="nav-link" href="../constructeurs/constructeurs.php">Constructeurs</a>
 			</li>
 		  </ul>
-		  
 		  <form class="d-flex">
-			<input class="form-control me-2" type="text" placeholder="Search">
-			<button class="btn btn-danger" type="button">Search</button> 
-		  </form>
+          			<input class="form-control me-2" type="text" placeholder="Search">
+          			<button class="btn btn-danger" type="button">Search</button>
+          		  </form>
+
 		  
 		</div>
 	  </div>
@@ -122,7 +126,7 @@
 	
 		    <div class="d-flex justify-content-center">
                <button type="input"
-                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body">Valider</button>
+                    class="btn btn-danger btn-block btn-lg gradient-custom-4 text-body">Valider</button>
                 </div>
 
                 <p class="text-center text-muted mt-5 mb-0"> Pas de compte ? <a href="inscription.php"
@@ -171,7 +175,8 @@
           <ul class="list-unstyled">
             <li>
               <a href="https://ufr6.www.univ-montp3.fr/fr/licence_miashs" class="text-white"><i class="fas fa-at fa-fw fa-sm me-2"></i> Licence MIASHS</a>
-            </li>            <li>
+            </li>
+            <li>
               <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i>Notre Rapport</a>
             </li>
 			
@@ -193,7 +198,6 @@
   </footer>
 
 
-<!-- End of .container -->
 
 
 

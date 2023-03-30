@@ -78,7 +78,7 @@
 			  <a class="nav-link" href="../pilotes/pilotes.php">Pilotes</a>
 			</li>
 			<li class="nav-item">
-			  <a class="nav-link" href="#">Grands Prix</a>
+			  <a class="nav-link" href="gps.php">Grands Prix</a>
 			</li>
 			<li class="nav-item">
 			  <a class="nav-link" href="../circuits/circuits.php">Circuits</a>
@@ -96,10 +96,15 @@
 		</div>
 	  </div>
 	</nav>
+
+	<div class="btn_modif">
+        <button type="button" class="btn btn-dark" onclick="#"> Trier Par Année</button>
+        </div>
+
 	
 	
 <?php // requete pilote de la saison en cours + drivers.url_photo
-    $query = "SELECT DISTINCT races.raceId, races.name, circuits.location
+    $query = "SELECT DISTINCT races.raceId, races.name, circuits.location, races.url_photo, races.year
 FROM circuits, seasons, races 
 WHERE races.year=(SELECT seasons.year FROM seasons ORDER BY seasons.year DESC LIMIT 1) 
 AND races.circuitId=circuits.circuitId
@@ -108,11 +113,11 @@ ORDER BY races.date DESC";
 	$statement=$bdd->prepare($query); $rep = $statement -> execute();
     $gps = $statement -> fetchAll(); $nb = count($gps);
 
-    echo "<div class='container' id = 'pilot'> \n <div class='row'>\n  ";
+    echo "<div class='container'> \n <div class='row'>\n  ";
     for($i=0; $i<$nb; $i++){
         echo "<div class='col-lg-6 col-sm-6'>\n";
         echo "<div class='row'>\n <div class='col-lg-4'><a href='./gp.php?id=".$gps[$i]["raceId"]."'> \n";  //$gp[$i]["url_photo"]
-        echo "<img src='../images/photo.jpg' alt='photo du gp'>\n</a></div>  <div class='col-lg-8'><a href='./gp.php?id=".$gps[$i]["raceId"]."'>  \n \n<p class='paragraphe'>".$gps[$i]["name"].", ".$gps[$i]["location"]."</p></a> \n</div>\n";echo "</div> \n</div>\n" ; 
+        echo "<img id='races' src='".$gps[$i]["url_photo"]."' alt='photo du gp'>\n</a></div>  <div class='col-lg-8'><a href='./gp.php?id=".$gps[$i]["raceId"]."'>  \n \n<p class='paragraphe'>".$gps[$i]["name"].", ".$gps[$i]["location"]." (".$gps[$i]["year"].")</p></a> \n</div>\n";echo "</div> \n</div>\n" ;
         if($i%2==1 && $i!=$nb-1 && $i!=0){
             echo "</div> <div class='row'>";
         }

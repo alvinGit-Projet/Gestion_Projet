@@ -16,7 +16,12 @@
 	  document.getElementById("main").style.marginLeft = "0";
 	}
 		</script>
-	
+
+	<style>
+
+	</style>
+
+
 		
         </head> 
     <body>
@@ -77,11 +82,11 @@
 			  <a class="nav-link" href="../constructeurs/constructeurs.php">Constructeurs</a>
 			</li>
 		  </ul>
-		  
 		  <form class="d-flex">
-			<input class="form-control me-2" type="text" placeholder="Search">
-			<button class="btn btn-danger" type="button">Search</button> 
-		  </form>
+          			<input class="form-control me-2" type="text" placeholder="Search">
+          			<button class="btn btn-danger" type="button">Search</button>
+          		  </form>
+
 		  
 		</div>
 	  </div>
@@ -152,7 +157,7 @@
 
                 <div class="d-flex justify-content-center">
                   <button type="input"
-                    class="btn btn-success btn-block btn-lg gradient-custom-4 text-body"> Valider </button>
+                    class="btn btn-danger btn-block btn-lg gradient-custom-4 text-body"> Valider </button>
                 </div>
 
                 <p class="text-center text-muted mt-5 mb-0"> Déjà inscrit ? <a href="connexion.php"

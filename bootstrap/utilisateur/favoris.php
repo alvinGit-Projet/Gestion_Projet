@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">  
     <link rel="stylesheet" href="../style_in.css" type="text/css">
+    <link rel="stylesheet" href="../pilotes/pilote.css" type="text/css">
 
 	
 		 <script>
@@ -74,17 +75,17 @@
 		  	echo "".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom'];
 		  	}
 		  ?>
-		  <a href="../utilisateur/favoris.php">Mes Favoris</a>
-		  <a href="../utilisateur/abonnement.php">Mes Abonnements</a>
-		  <a href="../utilisateur/parier.php">Parier</a>
+		  <a href="favoris.php">Mes Favoris</a>
+		  <a href="abonnement.php">Mes Abonnements</a>
+		  <a href="parier.php">Parier</a>
 		  <a href="../bd.php">Base de Données</a>
 		  <?php
 		  if (!isset($_SESSION['utilisateur'])){
-		  	echo '<a href="../utilisateur/inscription.php"> Inscription </a>';
-		  	echo '<a href="../utilisateur/connexion.php"> Connexion </a>';
+		  	echo '<a href="inscription.php"> Inscription </a>';
+		  	echo '<a href="connexion.php"> Connexion </a>';
 		  	}
 		  else{
-		  	echo '<a href="../utilisateur/deconnexion.php"> deconnexion </a>';
+		  	echo '<a href="deconnexion.php"> deconnexion </a>';
 		  	}
 		  	
 		  ?>

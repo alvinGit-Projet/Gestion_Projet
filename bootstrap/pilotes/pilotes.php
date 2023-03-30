@@ -95,17 +95,29 @@
 		</div>
 	  </div>
 	</nav>
+
+	<div class="btn_modif">
+        <button type="button" class="btn btn-dark" onclick="window.location='comparer_pilotes.php'"> Comparer</button>
+    </div>
+
 	
 <?php // requete pilote de la saison en cours 
-    $query = "SELECT DISTINCT drivers.forename, drivers.surname, drivers.code, drivers.driverId FROM drivers, seasons, races, results WHERE races.year=(SELECT seasons.year FROM seasons ORDER BY seasons.year DESC LIMIT 1) AND races.raceId=results.raceId AND results.driverId=drivers.driverId";
-    $statement=$bdd->prepare($query); $rep = $statement -> execute();
-    $pilotes = $statement -> fetchAll(); $nb = count($pilotes);
+    $query = "SELECT DISTINCT drivers.forename, drivers.surname, drivers.code, drivers.driverId, drivers.url_photo FROM drivers, seasons, races, results WHERE races.year=(SELECT seasons.year FROM seasons ORDER BY seasons.year DESC LIMIT 1) AND races.raceId=results.raceId AND results.driverId=drivers.driverId";
+    $statement=$bdd->prepare($query);
+    $rep = $statement -> execute();
+    $pilotes = $statement -> fetchAll();
+    $nb = count($pilotes);
 
     echo "<div class='container'> \n <div class='row'>\n ";
     for($i=0; $i<$nb; $i++){
         echo "<div class='col-lg-6 col-sm-6'>\n";
         echo "<div class='row'>\n <div class='col-lg-4'><a href='./pilote.php?id=".$pilotes[$i]["driverId"]."'> \n";  //$pilotes[$i]["url_photo"]
-        echo "<img src='../images/photo.jpg' alt='photo du pilote'>\n</a></div>  <div class='col-lg-8'><a href='./pilote.php?id=".$pilotes[$i]["driverId"]."'>  \n \n<p class='paragraphe'>".$pilotes[$i]["forename"]." ".$pilotes[$i]["surname"]."</p></a> \n</div>\n";
+		if($pilotes[$i]["url_photo"]==""){
+			echo "<img src='../images/photo.jpg'>\n</a></div>  <div class='col-lg-8'><a href='./pilote.php?id=".$pilotes[$i]["driverId"]."'>  \n \n<p class='paragraphe'>".$pilotes[$i]["forename"]." ".$pilotes[$i]["surname"]."</p></a> \n</div>\n";
+		}
+		else{
+			echo "<img src='".$pilotes[$i]["url_photo"]."' alt='photo du pilote'>\n</a></div>  <div class='col-lg-8'><a href='./pilote.php?id=".$pilotes[$i]["driverId"]."'>  \n \n<p class='paragraphe'>".$pilotes[$i]["forename"]." ".$pilotes[$i]["surname"]."</p></a> \n</div>\n";
+		}
         echo "</div> \n</div>\n" ; 
         if($i%2==1 && $i!=$nb-1 && $i!=0){
             echo "</div> <div class='row'>";
@@ -114,6 +126,128 @@
     echo "</div> </div>";
 
     ?>
+
+<div id="recommandation">
+	<?php
+
+	if(isset($_SESSION["client"])){
+		$countq = "SELECT COUNT(*) FROM liker_pilote WHERE liker_pilote.email_adress=".$_SESSION["client"]["email_adress"];
+		$sttm = $bdd -> prepare($countq); $rep = $sttm -> execute(); $count = $sttm -> fetch();
+		if($count>10){
+			require("./recommandation_pilotes.php");
+			// algo de recommandation avancé
+			echo "<h2> Pilotes similaires à ceux aimés </h2>";
+			// recommandation par les plus consultés
+			$similaire = reco_content_based($bdd);
+
+			echo "<div class='container'> <div class='row'>";
+			for($i=0; $i<count($similaire); $i++){
+				$q = "SELECT * FROM drivers WHERE drivers.driverId=".$similaire[$i]["id"];
+				$rep = $bdd -> query($q); $pilote = $rep -> fetch();
+
+				echo "<div class='col-lg-3 col-sm-6'><a href='./pilote.php?id=".$pilote["driverId"]."'>";
+				if($pilote["url_photo"]!=""){
+					echo "<img src='".$pilote["url_photo"]."' alt='photo du pilote'>\n<br><p class='paragraphe2'>".$pilote["forename"]." ".$pilote["surname"]."</p>";
+				}
+				else{
+					echo "<img src='../images/photo.jpg' alt='photo du pilote'>\n<br><p class='paragraphe2'>".$pilote["forename"]." ".$pilote["surname"]."</p>";
+				}
+				echo "</a></div>\n\n";
+				if($i==3){ echo "</div><div class='row'>"; }
+			}
+			echo "</div></div>";
+
+			echo "<h2> Pilotes aimés par d'autres utilisateurs </h2>";
+			// recommandation par les plus consultés
+			$similaire = reco_user_based($bdd);
+
+			echo "<div class='container'> <div class='row'>";
+			for($i=0; $i<count($similaire); $i++){
+				$q = "SELECT * FROM drivers WHERE drivers.driverId=".$similaire[$i]["id"];
+				$rep = $bdd -> query($q); $pilote = $rep -> fetch();
+
+				echo "<div class='col-lg-3 col-sm-6'><a href='./pilote.php?id=".$pilote["driverId"]."'>";
+				if($pilote["url_photo"]!=""){
+					echo "<img src='".$pilote["url_photo"]."' alt='photo du pilote'>\n<br><p class='paragraphe2'>".$pilote["forename"]." ".$pilote["surname"]."</p>";
+				}
+				else{
+					echo "<img src='../images/photo.jpg' alt='photo du pilote'>\n<br><p class='paragraphe2'>".$pilote["forename"]." ".$pilote["surname"]."</p>";
+				}
+				echo "</a></div>\n\n";
+				if($i==3){ echo "</div><div class='row'>"; }
+			}
+			echo "</div></div>";
+
+		}
+		else{
+			// algo recommandation classique
+			echo "<h2> Pilotes les plus consultés </h2>";
+			// recommandation par les plus consultés
+			$mostvisited = "SELECT * FROM drivers ORDER BY drivers.visites DESC LIMIT 8";
+			$rep = $bdd -> query($mostvisited); $top8=$rep -> fetchAll();
+
+			echo "<div class='container'> <div class='row'>";
+			for($i=0; $i<count($top8); $i++){
+				echo "<div class='col-lg-3 col-sm-6'><a href='./pilote.php?id=".$top8[$i]["driverId"]."'>";
+				if($top8[$i]["url_photo"]!=""){
+					echo "<img src='".$top8[$i]["url_photo"]."' alt='photo du pilote'>\n<br><p class='paragraphe2'>".$top8[$i]["forename"]." ".$top8[$i]["surname"]."</p>";
+				}
+				else{
+					echo "<img src='../images/photo.jpg' alt='photo du pilote'>\n<br><p class='paragraphe2'>".$top8[$i]["forename"]." ".$top8[$i]["surname"]."</p>";
+				}
+				echo "</a></div>\n\n";
+				if($i==3){ echo "</div><div class='row'>"; }
+			}
+			echo "</div></div>";
+
+		}
+	}
+	else{
+
+	echo "<h2> Pilotes les plus consultés </h2>";
+
+	// recommandation par les plus consultés
+	$mostvisited = "SELECT * FROM drivers ORDER BY drivers.visites DESC LIMIT 8";
+	$rep = $bdd -> query($mostvisited); $top8=$rep -> fetchAll();
+
+	echo "<div class='container'> <div class='row'>";
+	for($i=0; $i<count($top8); $i++){
+		echo "<div class='col-lg-3 col-sm-6'><a href='./pilote.php?id=".$top8[$i]["driverId"]."'>";
+		if($top8[$i]["url_photo"]!=""){
+			echo "<img src='".$top8[$i]["url_photo"]."' alt='photo du pilote'>\n<br><p class='paragraphe2'>".$top8[$i]["forename"]." ".$top8[$i]["surname"]."</p>";
+		}
+		else{
+			echo "<img src='../images/photo.jpg' alt='photo du pilote'>\n<br><p class='paragraphe2'>".$top8[$i]["forename"]." ".$top8[$i]["surname"]."</p>";
+		}
+		echo "</a></div>\n\n";
+		if($i==3){ echo "</div><div class='row'>"; }
+	}
+	echo "</div></div>";
+}
+	echo "<h2> Sélection aléatoire de pilotes </h2>" ;
+
+	// recommandation par random
+	$randomq = "SELECT * FROM drivers ORDER BY RAND() LIMIT 8";
+	$rep2 = $bdd -> query($randomq); $rand8=$rep2 -> fetchAll();
+
+	echo "<div class='container'> <div class='row'>";
+	for($i=0; $i<count($rand8); $i++){
+		echo "<div class='col-lg-3 col-sm-6'><a href='./pilote.php?id=".$rand8[$i]["driverId"]."'>";
+		if($rand8[$i]["url_photo"]!=""){
+			echo "<img src='".$rand8[$i]["url_photo"]."' alt='photo du pilote'>\n<br><p class='paragraphe2'>".$rand8[$i]["forename"]." ".$rand8[$i]["surname"]."</p>";
+		}
+		else{
+			echo "<img src='../images/photo.jpg' alt='photo du pilote'>\n<br><p class='paragraphe2'>".$rand8[$i]["forename"]." ".$rand8[$i]["surname"]."</p>";
+		}
+		echo "</a></div>\n\n";
+		if($i==3){ echo "</div><div class='row'>"; }
+	}
+	echo "</div></div>";
+	?>
+
+
+</div>
+
 
 
 <!-- FOOTER -->
