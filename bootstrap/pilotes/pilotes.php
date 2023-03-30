@@ -43,8 +43,8 @@
 		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 		  <?php
 		  if (isset($_SESSION['utilisateur'])){
-		  	echo "".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom'];
-		  	}
+			echo "<p style='text-align:center'> Bonjour ".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom']."</p>";
+		}
 		  ?>
 		  <a href="../utilisateur/favoris.php">Mes Favoris</a>
 		  <a href="../utilisateur/abonnement.php">Mes Abonnements</a>
@@ -87,19 +87,14 @@
 			</li>
 		  </ul>
 		  
-		  <form class="d-flex">
-			<input class="form-control me-2" type="text" placeholder="Search">
-			<button class="btn btn-danger" type="button">Search</button> 
+		  <form class="d-flex" action="../recherche.php" method="get">
+			<input class="form-control me-2" type="text" name="search" placeholder="Search">
+			<button class="btn btn-danger" type="submit">Search</button> 
 		  </form>
 		  
 		</div>
 	  </div>
 	</nav>
-
-	<div class="btn_modif">
-        <button type="button" class="btn btn-dark" onclick="window.location='comparer_pilotes.php'"> Comparer</button>
-    </div>
-
 	
 <?php // requete pilote de la saison en cours 
     $query = "SELECT DISTINCT drivers.forename, drivers.surname, drivers.code, drivers.driverId, drivers.url_photo FROM drivers, seasons, races, results WHERE races.year=(SELECT seasons.year FROM seasons ORDER BY seasons.year DESC LIMIT 1) AND races.raceId=results.raceId AND results.driverId=drivers.driverId";

@@ -40,21 +40,8 @@
             }
         }
         else{
-    //        die("Vous devez être connecté pour accéder à cette page");
-    echo "connexion exceptionnelle";
-            $query1 = "SELECT liker_pilote.driverId FROM liker_pilote WHERE liker_pilote.email_adress='a'";
-            $query2 = "SELECT liker_constructor.constructorId FROM liker_constructor WHERE liker_constructor.email_adress='a'";
-
-            $statement1 = $bdd -> prepare($query1); $statement2 = $bdd -> prepare($query2);
-
-            $rep1 = $statement1 -> execute(); $rep2 = $statement2 -> execute();
-            if($rep1 && $rep2){
-                $pilotes=$statement1 -> fetchAll();
-                $constructeurs=$statement2 -> fetchAll();
-            }
-            else{
-                die("smth went wrong");
-            }
+          echo "<meta http-equiv='refresh'  content='0; URL=./connexion.php?error=connexion-necessaire'>";
+          die("Vous devez être connecté pour accéder à cette page");
         }
     ?>
 
@@ -66,13 +53,13 @@
 	
 	<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
 	<div class="container-fluid">
-	
+
 		
 		<div id="mySidebar" class="sidebar">
 		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 		  <?php
 		  if (isset($_SESSION['utilisateur'])){
-		  	echo "".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom'];
+		  	echo "<p style='text-align:center'> Bonjour ".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom']."</p>";
 		  	}
 		  ?>
 		  <a href="favoris.php">Mes Favoris</a>
@@ -116,9 +103,9 @@
 			</li>
 		  </ul>
 		  
-		  <form class="d-flex">
-			<input class="form-control me-2" type="text" placeholder="Search">
-			<button class="btn btn-danger" type="button">Search</button> 
+		  <form class="d-flex" action="../recherche.php" method="get">
+			<input class="form-control me-2" type="text" name="search" placeholder="Search">
+			<button class="btn btn-danger" type="submit">Search</button> 
 		  </form>
 		  
 		</div>
@@ -131,7 +118,7 @@
 	
 	<!-- Boucle php-->
 	<div class="p-5 bg-secondary text-white text-center">
-		<h2> Vos Favoris</h2>
+		<h1> Vos Favoris</h1>
 	</div>
 
     <div class="container-fluid" id="favs">
@@ -141,15 +128,17 @@
                 <?php 
                     $nb_pilotes=count($pilotes);
 					if($nb_pilotes ==0){
-						echo "<center>Aucun favoris pour l'instant </center>";
+						echo "<center><p style='text-align:center'>Aucun favoris pour l'instant</p></center>";
 					}
 					else{
+            echo "<div class='container'> ";
                     for($i=0; $i<$nb_pilotes; $i++){
-                        $query = "SELECT drivers.forename, drivers.surname FROM drivers WHERE drivers.driverId=".$pilotes[$i]["driverId"];
+                        $query = "SELECT drivers.forename, drivers.surname, drivers.url_photo FROM drivers WHERE drivers.driverId=".$pilotes[$i]["driverId"];
                         $statement = $bdd -> prepare($query); $ans = $statement -> execute(); $pilote = $statement -> fetch();
-                        echo "<div class='row'>  <div class='col-lg-4'> <a href='../pilotes/pilote?id=".$pilotes[$i]["driverId"]."'> <img src='../images/photo.jpg' alt='photo pilote'> </a> </div> <div class='col-lg-8'>  <a href='../pilotes/pilote?id=".$pilotes[$i]["driverId"]."'> <p class='paragraphe'>".$pilote["forename"]." ".$pilote["surname"]."</p> </a> </div> </div>";
+                        echo " <a href='../pilotes/pilote.php?id=".$pilotes[$i]["driverId"]."'><div class='row'> <div class='col-lg-3'> <img src='".$pilote["url_photo"]."' alt='photo pilote'> </div>";
+                        echo "<div class='col-lg-9'> <p class='paragraphe'>".$pilote["forename"]." ".$pilote["surname"]."</p> </div></div></a>";
                     }}
-
+                    echo "</div>";
                 ?>
             </div>
 			
@@ -159,14 +148,17 @@
                 <?php 
                     $nb_constructeurs=count($constructeurs);
 					if($nb_constructeurs ==0){
-						echo "<center/>Aucun favoris pour l'instant </center>";
+						echo "<center/><p style='text-align:center'>Aucun favoris pour l'instant</p></center>";
 					}
 					else{
-                    for($i=0; $i<$nb_constructeurs; $i++){
-                        $query = "SELECT constructors.name FROM constructors WHERE constructors.constructorId=".$constructeurs[$i]["constructorId"];
-                        $statement = $bdd -> prepare($query); $ans = $statement -> execute(); $constructeur = $statement -> fetch();
-                        echo "<div class='row'> <div class='col-lg-4'><a href='../constructeurs/constructeur?id=".$constructeurs[$i]["constructorId"]."'> <img src='../images/photo.jpg' alt='photo constructeur'> </a> </div> <div class='col-lg-8'> <a href='../constructeurs/constructeur?id=".$constructeurs[$i]["constructorId"]."'> <p class='paragraphe'> ".$constructeur["name"]." </p> </a> </div> </div>";
-                    }}
+            echo "<div class='container'> ";
+            for($i=0; $i<$nb_constructeurs; $i++){
+                $query = "SELECT constructors.name, constructors.url_photo FROM constructors WHERE constructors.constructorId=".$constructeurs[$i]["constructorId"];
+                $statement = $bdd -> prepare($query); $ans = $statement -> execute(); $constructeur = $statement -> fetch();
+                echo " <a href='../pilotes/pilote.php?id=".$constructeurs[$i]["constructorId"]."'><div class='row'> <div class='col-lg-3'> <img src='".$constructeur["url_photo"]."' alt='photo constructeur'> </div>";
+                echo "<div class='col-lg-9'> <p class='paragraphe'>".$constructeur["name"]."</p> </div></div></a>";
+            }}
+            echo "</div>";
                 
                 ?>
             </div>

@@ -17,13 +17,13 @@
         require("../fonction.php");
         $bdd = getBD();
         // On va générer les abonnements du client connecté = récupération de l'id Session
-        if(!isset($_SESSION['client']['id'])){ 
-        //   echo "<meta http-equiv='refresh'  content='0; URL=../accueil.php'>";
-         //   die("Vous n'êtes pas censé arriver ici, retour page d'accueil");
-            echo "autorisation exceptionnelle"; 
+        if(!isset($_SESSION['utilisateur'])){ 
+           echo "<meta http-equiv='refresh'  content='0; URL=./connexion.php?error=connexion-necessaire'>";
+            die("Vous n'êtes pas censé arriver ici, retour page d'accueil");
+          //  echo "autorisation exceptionnelle"; 
         } 
         else{
-            $id=$_SESSION['client']['id'];  // ou email_adress et il ne reste plus qu'à utiliser $id dans les requêtes ci-dessous
+            $email=$_SESSION['utilisateur']["email_adress"];  // ou email_adress et il ne reste plus qu'à utiliser $id dans les requêtes ci-dessous
         }
     ?>
 
@@ -57,7 +57,7 @@
 
 		  <?php
 		  if (isset($_SESSION['utilisateur'])){
-		  	echo "".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom'];
+		  	echo "<p style='text-align:center'> Bonjour ".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom']."</p>";
 		  	}
 		  ?>
 		  <a href="./favoris.php">Mes Favoris</a>
@@ -103,9 +103,9 @@
 			</li>
 		  </ul>
 		  
-		  <form class="d-flex">
-			<input class="form-control me-2" type="text" placeholder="Search">
-			<button class="btn btn-danger" type="button">Search</button> 
+		  <form class="d-flex" action="../recherche.php" method="get">
+			<input class="form-control me-2" type="text" name="search" placeholder="Search">
+			<button class="btn btn-danger" type="submit">Search</button> 
 		  </form>
 		  
 		</div>
@@ -116,27 +116,27 @@
 
     <?php 
         if(isset($_POST["nw"])){
-            $rep = $bdd -> query("SELECT utilisateur.news_letter FROM utilisateur WHERE utilisateur.email_adress=1"); $ans = $rep-> fetch(); if($ans==""){ echo "L'utilisateur 1 n'existe pas "; }else{$bool = $ans[0]; }     
+            $rep = $bdd -> query("SELECT utilisateur.news_letter FROM utilisateur WHERE utilisateur.email_adress=".$email); $ans = $rep-> fetch(); if($ans==""){ echo "L'utilisateur n'existe pas "; }else{$bool = $ans[0]; }     
             if($bool){
-                $query = "UPDATE utilisateur SET utilisateur.news_letter=0 WHERE utilisateur.email_adress='1'";
+                $query = "UPDATE utilisateur SET utilisateur.news_letter=0 WHERE utilisateur.email_adress='".$email."'";
                 $statement = $bdd -> prepare($query);
                 $statement -> execute();
             }
             else{
-                $query = "UPDATE utilisateur SET utilisateur.news_letter=1 WHERE utilisateur.email_adress='1'";
+                $query = "UPDATE utilisateur SET utilisateur.news_letter=1 WHERE utilisateur.email_adress='".$email."'";
                 $statement = $bdd -> prepare($query);
                 $statement -> execute();
             }
         }
         if(isset($_POST["actu"])){
-            $rep=$bdd->query("SELECT abonnement.year FROM abonnement WHERE abonnement.email_adress='1' AND abonnement.year=(SELECT seasons.year FROM seasons ORDER BY seasons.year DESC LIMIT 1)"); $ans = $rep-> fetch();
+            $rep=$bdd->query("SELECT abonnement.year FROM abonnement WHERE abonnement.email_adress='".$email."' AND abonnement.year=(SELECT seasons.year FROM seasons ORDER BY seasons.year DESC LIMIT 1)"); $ans = $rep-> fetch();
             if($ans==""){
-                $query="INSERT INTO abonnement (year, email_adress, date, notification_active) VALUES (2022, '1', '2023-02-28', 1)";
+                $query="INSERT INTO abonnement (year, email_adress, date, notification_active) VALUES (2022, '".$email."', '2023-02-28', 1)";
                 $statement = $bdd -> prepare($query);
                 $statement -> execute();
             }
             else{
-                $query="DELETE FROM abonnement WHERE abonnement.year=(SELECT seasons.year FROM seasons ORDER BY seasons.year DESC LIMIT 1) AND abonnement.email_adress='1'";
+                $query="DELETE FROM abonnement WHERE abonnement.year=(SELECT seasons.year FROM seasons ORDER BY seasons.year DESC LIMIT 1) AND abonnement.email_adress='".$email."'";
                 $statement = $bdd -> prepare($query);
                 $statement -> execute();
             }
