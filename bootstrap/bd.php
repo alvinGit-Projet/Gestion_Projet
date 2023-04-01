@@ -48,11 +48,11 @@
 
 		  <?php
 		  if (isset($_SESSION['utilisateur'])){
-		  	echo "".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom'];
+		  	echo "<p style='text-align:center'> Bonjour ".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom']."</p>";
 		  	}
 		  ?>
-		  <a href="#">Mes Favoris</a>
-		  <a href="#">Mes Abonnements</a>
+		  <a href="./utilisateur/favoris.php">Mes Favoris</a>
+		  <a href="./utilisateur/abonnement.php">Mes Abonnements</a>
 		  <a href="./utilisateur/parier.php">Parier</a>
 		  <a href="./bd.html">Base de Données</a>
 
@@ -94,9 +94,9 @@
 			</li>
 		  </ul>
 		  
-		  <form class="d-flex">
-			<input class="form-control me-2" type="text" placeholder="Search">
-			<button class="btn btn-danger" type="button">Search</button> 
+		  <form class="d-flex" action="recherche.php" method="get">
+			<input class="form-control me-2" type="text" name="search" placeholder="Search">
+			<button class="btn btn-danger" type="submit">Search</button> 
 		  </form>
 		  
 		  </div>
@@ -192,7 +192,12 @@
                 <div class="download">
                     <h5> Télécharger au format <strong>CSV</strong></h5>
                     <div class="btn-container" id = "btn_telechargement">
-                        <button class="btn btn-dark" > Télécharger (.csv) </button>
+                      <a href="./f1.csv" download="f1.csv">
+                       <button type="button" class="btn btn-dark btn-floating">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-download" viewBox="0 0 16 16" > <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/> <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/> </svg>
+                         Telecharger (.csv) 
+                       </button>
+                      </a>
                     </div>
                 </div>
             </div>
@@ -200,7 +205,12 @@
                 <div class="download">
                     <h5> Télécharger au format <strong>SQL</strong></h5>
                     <div class="btn-container"id = "btn_telechargement">
-                        <button class="btn btn-dark"> Télécharger (.sql) </button>
+                    <a href="./f1.sql" download="f1.sql">
+                    <button type="button" class="btn btn-dark btn-floating">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-download" viewBox="0 0 16 16" > <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/> <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/> </svg>
+                         Telecharger (.sql) 
+                  </button>
+                  </a>
                     </div>
                 </div>
             </div>
@@ -208,7 +218,12 @@
                 <div class="download">
                     <h5> Télécharger au format <strong>XLSX</strong></h5>
                     <div class="btn-container" id = "btn_telechargement">
-                        <button class="btn btn-dark"> Télécharger (.xlsx) </button>
+                    <a href="./f1.xlsx" download="f1.xlsx">
+                      <button type="button" class="btn btn-dark btn-floating">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="white" class="bi bi-download" viewBox="0 0 16 16" > <path d="M.5 9.9a.5.5 0 0 1 .5.5v2.5a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-2.5a.5.5 0 0 1 1 0v2.5a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2v-2.5a.5.5 0 0 1 .5-.5z"/> <path d="M7.646 11.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 10.293V1.5a.5.5 0 0 0-1 0v8.793L5.354 8.146a.5.5 0 1 0-.708.708l3 3z"/> </svg>
+                         Telecharger (.xlsx)
+                      </button>         
+                     </a>
                     </div>
                 </div>
             </div>

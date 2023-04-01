@@ -28,10 +28,6 @@ text-align: right;
 }
 
 h5{
-padding-bottom:5px;
-
-}
-h4{
 padding-bottom:15px;
 
 }
@@ -124,30 +120,6 @@ margin-top:10px;
 margin-bottom:10px;
 filter: drop-shadow(10px 10px 10px black);}
 
-#gp_indi{
-height:80px; width:120px; border-radius: inherit;
-border: 0.5px solid #b4b4b4;
-margin-left:30px;
-margin-top:10px;
-margin-bottom:10px;
-filter: drop-shadow(10px 10px 10px black);}
-
-#circuits_indi{
-height:120px; width:150px; border-radius: 0;
-margin-left:30px;
-border:none;
-margin-top:20px;
-filter: drop-shadow(10px 10px 10px black);}
-
-#const_indi{
-height:80px; width:170px;
-border-radius: 0;
-border:none;
-margin-left:30px;
-margin-top:10px;
-margin-bottom:10px;
-filter: drop-shadow(10px 10px 10px black);}
-
 
 #pilotes_title{
 padding-top:20px;
@@ -155,17 +127,9 @@ padding-left:35px;
 color: #888c90;
 }
 
-#code{
-color: #64040C;
-font-size: 55px;
-line-height: 1;
-text-shadow: black 2px 1px
-padding-top:15px;
-padding-bottom:3px;
-}
-
 #stats{
-	padding-bottom:15px;
+	padding-top:20px;
+	padding-bottom:20px;
 	color:WHITE;
 	text-align:center;
 	height:auto;
@@ -178,8 +142,6 @@ padding-bottom:3px;
 	padding-top:20px;
 	padding-bottom:20px;
 }
-
-
 li #lien{
 color: #ECECEC;
 text-decoration:none;
@@ -220,12 +182,6 @@ text-align:right;
     padding-top:10px;
 	height:60px;
 	with:60px;
-}
-/*circuit*/
-#img_cir_ind{
- height:130px;
- width:130px;
-
 }
 
 
@@ -298,14 +254,21 @@ text-align:right;
 #tableau{
     color: black;
 }
-
-#th{
-font-weight:bold;
+#tableau tr{
+    border-color: black;
 }
-#td{
+#tableau th, td{
     text-align: center;
+    color: black ;
+    text-shadow: grey 1px 1px ;
+    border-left-color:black;
     font-size: 1.1em;
 }
+
+
+
+
+
 
 
 

@@ -82,10 +82,10 @@
 			  <a class="nav-link" href="../constructeurs/constructeurs.php">Constructeurs</a>
 			</li>
 		  </ul>
-		  <form class="d-flex">
-          			<input class="form-control me-2" type="text" placeholder="Search">
-          			<button class="btn btn-danger" type="button">Search</button>
-          		  </form>
+		  <form class="d-flex" action="../recherche.php" method="get">
+			<input class="form-control me-2" type="text" name="search" placeholder="Search">
+			<button class="btn btn-danger" type="submit">Search</button> 
+		  </form>
 
 		  
 		</div>

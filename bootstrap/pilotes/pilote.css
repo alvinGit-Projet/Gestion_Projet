@@ -39,8 +39,8 @@ filter: drop-shadow(10px 10px 10px black);}
 border:none;
 }
 #constr{
-  height:80px; width:170px; border-radius: 0;
-  margin-left:30px;
+  height:80px; width:80px; border-radius: 0;
+  margin-left: 0;
 border: none;
 }
 
