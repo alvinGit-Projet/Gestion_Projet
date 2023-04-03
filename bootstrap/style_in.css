@@ -28,6 +28,10 @@ text-align: right;
 }
 
 h5{
+padding-bottom:5px;
+
+}
+h4{
 padding-bottom:15px;
 
 }
@@ -57,6 +61,10 @@ margin: 0 0 55px;
 text-align: center;
 }
 
+h5{
+text-align: center;
+color: #ECECEC;
+}
 
 p {
 color: #ECECEC;
@@ -78,8 +86,10 @@ text-justify: inter-word;
 
 #title{
 border-bottom: solid black 1px;
+}
 
-
+#title_not_ind{
+border-bottom: solid black 1px;
 }
 
 /*index*/
@@ -120,6 +130,37 @@ margin-top:10px;
 margin-bottom:10px;
 filter: drop-shadow(10px 10px 10px black);}
 
+#gp_indi{
+height:80px; width:120px; border-radius: inherit;
+border: 0.5px solid #b4b4b4;
+margin-left:30px;
+margin-top:10px;
+margin-bottom:10px;
+filter: drop-shadow(10px 10px 10px black);}
+
+#img_cir_ind{
+height:200px; width:230px;
+border-radius: 0;
+padding-bottom:15px;
+border:none;
+filter: drop-shadow(10px 10px 10px black);
+}
+
+#circuits_indi{
+height:120px; width:150px; border-radius: 0;
+margin-left:30px;
+border:none;
+filter: drop-shadow(10px 10px 10px black);}
+
+#const_indi{
+height:80px; width:80px;
+border-radius: 0;
+border:none;
+margin-left:30px;
+margin-top:10px;
+margin-bottom:10px;
+filter: drop-shadow(10px 10px 10px black);}
+
 
 #pilotes_title{
 padding-top:20px;
@@ -127,9 +168,17 @@ padding-left:35px;
 color: #888c90;
 }
 
+#code{
+color: #64040C;
+font-size: 55px;
+line-height: 1;
+text-shadow: black 2px 1px
+padding-top:15px;
+padding-bottom:3px;
+}
+
 #stats{
-	padding-top:20px;
-	padding-bottom:20px;
+	padding-bottom:15px;
 	color:WHITE;
 	text-align:center;
 	height:auto;
@@ -142,6 +191,8 @@ color: #888c90;
 	padding-top:20px;
 	padding-bottom:20px;
 }
+
+
 li #lien{
 color: #ECECEC;
 text-decoration:none;
@@ -183,6 +234,8 @@ text-align:right;
 	height:60px;
 	with:60px;
 }
+/*circuit*/
+
 
 
 /*FAVORIS */
@@ -234,9 +287,10 @@ text-align:right;
 
 
 
-#btn_telechargement{
-	margin:10px 0 ;
-	margin-left:32%;
+btn_telechargement{
+   text-align: center;
+               border: 1px solid coral;
+               height: 40vh;
 }
 
 
@@ -254,21 +308,14 @@ text-align:right;
 #tableau{
     color: black;
 }
-#tableau tr{
-    border-color: black;
+
+#th{
+font-weight:bold;
 }
-#tableau th, td{
+#td{
     text-align: center;
-    color: black ;
-    text-shadow: grey 1px 1px ;
-    border-left-color:black;
     font-size: 1.1em;
 }
-
-
-
-
-
 
 
 

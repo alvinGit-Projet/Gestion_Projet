@@ -43,8 +43,8 @@
 		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 		  <?php
 		  if (isset($_SESSION['utilisateur'])){
-			echo "<p style='text-align:center'> Bonjour ".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom']."</p>";
-		}
+		  	echo "<p style='text-align:center'> Bonjour ".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom']."</p>";
+            		  	}
 		  ?>
 		  <a href="../utilisateur/favoris.php">Mes Favoris</a>
 		  <a href="../utilisateur/abonnement.php">Mes Abonnements</a>
@@ -87,14 +87,19 @@
 			</li>
 		  </ul>
 		  
-		  <form class="d-flex" action="../recherche.php" method="get">
-			<input class="form-control me-2" type="text" name="search" placeholder="Search">
-			<button class="btn btn-danger" type="submit">Search</button> 
+		  <form class="d-flex">
+			<input class="form-control me-2" action="../recherche.php"type="text" placeholder="Search">
+			<button class="btn btn-danger" type="button">Search</button> 
 		  </form>
 		  
 		</div>
 	  </div>
 	</nav>
+
+	<div class="btn_modif">
+        <button type="button" class="btn btn-dark" onclick="window.location='comparer_pilotes.php'"> Comparer</button>
+    </div>
+
 	
 <?php // requete pilote de la saison en cours 
     $query = "SELECT DISTINCT drivers.forename, drivers.surname, drivers.code, drivers.driverId, drivers.url_photo FROM drivers, seasons, races, results WHERE races.year=(SELECT seasons.year FROM seasons ORDER BY seasons.year DESC LIMIT 1) AND races.raceId=results.raceId AND results.driverId=drivers.driverId";
@@ -105,13 +110,13 @@
 
     echo "<div class='container'> \n <div class='row'>\n ";
     for($i=0; $i<$nb; $i++){
-        echo "<div class='col-lg-6 col-sm-6'>\n";
-        echo "<div class='row'>\n <div class='col-lg-4'><a href='./pilote.php?id=".$pilotes[$i]["driverId"]."'> \n";  //$pilotes[$i]["url_photo"]
+        echo "<div class='col-lg-6 d-flex justify-content-center '>\n";
+        echo "<div class='row'>\n <div class='col-lg-4 d-flex justify-content-center'><a href='./pilote.php?id=".$pilotes[$i]["driverId"]."'> \n";  //$pilotes[$i]["url_photo"]
 		if($pilotes[$i]["url_photo"]==""){
-			echo "<img src='../images/photo.jpg'>\n</a></div>  <div class='col-lg-8'><a href='./pilote.php?id=".$pilotes[$i]["driverId"]."'>  \n \n<p class='paragraphe'>".$pilotes[$i]["forename"]." ".$pilotes[$i]["surname"]."</p></a> \n</div>\n";
+			echo "<img src='../images/photo.jpg'>\n</a></div>  <div class='col-lg-8 d-flex justify-content-center'><a href='./pilote.php?id=".$pilotes[$i]["driverId"]."'>  \n \n<p class='paragraphe'>".$pilotes[$i]["forename"]." ".$pilotes[$i]["surname"]."</p></a> \n</div>\n";
 		}
 		else{
-			echo "<img src='".$pilotes[$i]["url_photo"]."' alt='photo du pilote'>\n</a></div>  <div class='col-lg-8'><a href='./pilote.php?id=".$pilotes[$i]["driverId"]."'>  \n \n<p class='paragraphe'>".$pilotes[$i]["forename"]." ".$pilotes[$i]["surname"]."</p></a> \n</div>\n";
+			echo "<img src='".$pilotes[$i]["url_photo"]."' alt='photo du pilote'>\n</a></div>  <div class='col-lg-8 d-flex justify-content-center'><a href='./pilote.php?id=".$pilotes[$i]["driverId"]."'>  \n \n<p class='paragraphe'>".$pilotes[$i]["forename"]." ".$pilotes[$i]["surname"]."</p></a> \n</div>\n";
 		}
         echo "</div> \n</div>\n" ; 
         if($i%2==1 && $i!=$nb-1 && $i!=0){

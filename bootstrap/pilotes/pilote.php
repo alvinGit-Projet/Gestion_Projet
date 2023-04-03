@@ -72,7 +72,7 @@
 		  <?php
 		  if (isset($_SESSION['utilisateur'])){
 		  	echo "<p style='text-align:center'> Bonjour ".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom']."</p>";
-		  	}
+            		  	}
 		  ?>
 		  <a href="../utilisateur/favoris.php">Mes Favoris</a>
 		  <a href="../utilisateur/abonnement.php">Mes Abonnements</a>
@@ -114,14 +114,16 @@
 			</li>
 		  </ul>
 		  
-		  <form class="d-flex" action="../recherche.php" method="get">
-			<input class="form-control me-2" type="text" name="search" placeholder="Search">
-			<button class="btn btn-danger" type="submit">Search</button> 
+		  <form class="d-flex">
+			<input class="form-control me-2" action="../recherche.php" type="text" placeholder="Search">
+			<button class="btn btn-danger" type="button">Search</button> 
 		  </form>
 		  
 		</div>
 	  </div>
 	</nav>
+
+
 	
 
 	
@@ -129,7 +131,7 @@
 
     <div class="d-flex flex-row" id="title">
     <div class="p-2">
-    <img  id="p_indi" src= <?php echo $infos['url_photo']; ?>  alt='photo du pilote'>
+    <img  id="p_indi" src= "<?php echo $infos['url_photo']; ?>"  alt='photo du pilote'>
     </div>
     <div class="p-2">
     <h1 id="pilotes_title"> <?php echo $infos["forename"]." ".$infos["surname"];?></h1>
@@ -137,52 +139,48 @@
     </div>
 	
      
-    <div>
-        <div class="container-fluid" id="first" >
-            <div class="row">
-            <div class="col-lg-6" id="courses">
-                <h5> Biographie </h5>
-                <p>
-                Certe, gaudeo in hoc officio quod mihi datum est ut tibi litteras
-                Latine scribam. Latinitas est lingua pulchra et antiqua, quam multos
-                annos studui et amo.
-
-                In principio erat Verbum, et Verbum erat apud Deum, et
-                Deus erat Verbum. Hoc erat in principio apud Deum. Omnia per
-                ipsum facta sunt, et sine ipso factum est nihil, quod factum
-                est. In ipso vita erat, et vita erat lux hominum. Et lux in
-                tenebris lucet, et tenebrae eam non comprehenderunt.
-                </p>
-
-                <p>
-                Certe, gaudeo in hoc officio quod mihi datum est ut tibi litteras
-                Latine scribam. Latinitas est lingua pulchra et antiqua, quam multos
-                annos studui et amo.
-
-                In principio erat Verbum, et Verbum erat apud Deum, et
-                Deus erat Verbum. Hoc erat in principio apud Deum. Omnia per
-                ipsum facta sunt, et sine ipso factum est nihil, quod factum
-                est. In ipso vita erat, et vita erat lux hominum. Et lux in
-                tenebris lucet, et tenebrae eam non comprehenderunt.
-                </p>
-
-            </div>
-
-                <div class="col-lg-6" id="stats">
-                    <h5>  </h5>
-                    <ul class="list-group list-group-dark" data-bs-theme="dark">
-                    <li class="list-group-item list-group-item-dark"> Nom : <?php if(isset($infos["surname"])){ echo $infos["surname"]; } ?> </li>
-                    <li class="list-group-item list-group-item-dark"> Prénom : <?php if(isset($infos["forename"])){ echo $infos["forename"]; } ?> </li>
-                    <li class="list-group-item list-group-item-dark"> Date de naissance : <?php if(isset($infos["dob"])){ echo $infos["dob"]; } ?> </li>
-                    <li class="list-group-item list-group-item-dark"> Nationalité : <?php if(isset($infos["nationality"])){ echo traduireNationalite($infos["nationality"]); } ?> </li>
-
-                        </ul>
-                </div>
-				
-
-				
-            </div>
+<div>
+    <div class="container-fluid" id="first" >
+        <div class="row">
+        <div class="col-lg-6" id="stats">
+            <h2 id= "code">  <?php if(isset($infos["code"])){ echo $infos["code"]; } ?> </h2>
+            <ul class="list-group list-group-dark" data-bs-theme="dark">
+            <li class="list-group-item list-group-item-dark"> Nom : <?php if(isset($infos["surname"])){ echo $infos["surname"]; } ?> </li>
+            <li class="list-group-item list-group-item-dark"> Prénom : <?php if(isset($infos["forename"])){ echo $infos["forename"]; } ?> </li>
+            <li class="list-group-item list-group-item-dark"> Numéro : <?php if(isset($infos["number"])){ echo $infos["number"]; } ?> </li>
+            <li class="list-group-item list-group-item-dark"> Date de naissance : <?php if(isset($infos["dob"])){ echo $infos["dob"]; } ?> </li>
+            <li class="list-group-item list-group-item-dark"> Nationalité : <?php if(isset($infos["nationality"])){ echo traduireNationalite($infos["nationality"]); } ?> </li>
+            </ul>
         </div>
+
+
+        <div class="col-lg-6" id="courses">
+            <h5> Biographie </h5>
+            <p>
+            <?php $url = $infos["url"];
+                  require_once('../simple_html_dom.php');
+
+                  // Récupérer le contenu de la page Web
+                  $html = file_get_html($url);
+
+                  // Trouver tous les éléments HTML avec la classe "content"
+                  $elements = $html->find('p');
+
+
+                  $i=0;
+                  while($i<3){
+                    echo $elements[$i]->plaintext;
+                    echo "<br>";
+                    $i++;// changer le css balise a
+                  } ?>
+                  <a href= "<?php echo $url; ?>" >  Plus d'infos. </a>
+
+            </p>
+        </div>
+
+
+    </div>
+</div>
 
    
    

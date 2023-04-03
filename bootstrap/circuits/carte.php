@@ -76,7 +76,7 @@
 		  <?php
 		  if (isset($_SESSION['utilisateur'])){
 		  	echo "<p style='text-align:center'> Bonjour ".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom']."</p>";
-		  	}
+            }
 		  ?>
 
 		  <a href="../utilisateur/favoris.php">Mes Favoris</a>
@@ -120,9 +120,9 @@
 			</li>
 		  </ul>
 
-		  <form class="d-flex" action="../recherche.php" method="get">
-			<input class="form-control me-2" type="text" name="search" placeholder="Search">
-			<button class="btn btn-danger" type="submit">Search</button> 
+		  <form class="d-flex">
+			<input class="form-control me-2" action="../recherche.php" type="text" placeholder="Search">
+			<button class="btn btn-danger" type="button">Search</button>
 		  </form>
 
 		</div>

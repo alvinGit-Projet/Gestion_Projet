@@ -4,7 +4,7 @@
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 		<link rel="stylesheet" href="../pilotes/pilote.css" type="text/css">
-	  
+
 	  <title>Constructeurs</title>
 	  
 	  
@@ -43,8 +43,8 @@
 		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 		  <?php
 		  if (isset($_SESSION['utilisateur'])){
-			echo "<p style='text-align:center'> Bonjour ".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom']."</p>";
-		}
+		  	echo "<p style='text-align:center'> Bonjour ".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom']."</p>";
+            		  	}
 		  ?>
 		  <a href="../utilisateur/favoris.php">Mes Favoris</a>
 		  <a href="../utilisateur/abonnement.php">Mes Abonnements</a>
@@ -83,18 +83,27 @@
 			  <a class="nav-link" href="../circuits/circuits.php">Circuits</a>
 			</li>
 			<li class="nav-item">
-			  <a class="nav-link" href="#">Constructeurs</a>
+			  <a class="nav-link" href="constructeurs.php">Constructeurs</a>
 			</li>
 		  </ul>
 		  
-		  <form class="d-flex" action="../recherche.php" method="get">
-			<input class="form-control me-2" type="text" name="search" placeholder="Search">
-			<button class="btn btn-danger" type="submit">Search</button> 
+		  <form class="d-flex">
+			<input class="form-control me-2" action="../recherche.php" type="text" placeholder="Search">
+			<button class="btn btn-danger" type="button">Search</button> 
 		  </form>
 		  
 		</div>
 	  </div>
 	</nav>
+
+
+	<div class="btn_modif">
+            <button type="button" class="btn btn-dark" onclick="window.location='comparer_pilotes.php'"> Comparer</button>
+       </div>
+
+
+
+
 	
 	
 <?php // requete pilote de la saison en cours + drivers.url_photo

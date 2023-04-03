@@ -70,7 +70,7 @@
 		  <?php
 		  if (isset($_SESSION['utilisateur'])){
 		  	echo "<p style='text-align:center'> Bonjour ".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom']."</p>";
-		  	}
+            }
 		  ?>
 		  <a href="../utilisateur/favoris.php">Mes Favoris</a>
 		  <a href="../utilisateur/abonnement.php">Mes Abonnements</a>
@@ -112,9 +112,9 @@
 			</li>
 		  </ul>
 		  
-		  <form class="d-flex" action="../recherche.php" method="get">
-			<input class="form-control me-2" type="text" name="search" placeholder="Search">
-			<button class="btn btn-danger" type="submit">Search</button> 
+		  <form class="d-flex">
+			<input class="form-control me-2" action="../recherche.php" type="text" placeholder="Search">
+			<button class="btn btn-danger" type="button">Search</button> 
 		  </form>
 		  
 		</div>
@@ -124,42 +124,70 @@
 
 	
 	<!--STATS-->
-	
-    <div class="p-5 bg-danger text-white text-center">
-        <h2> <?php echo $infos["name"];?></h2>
+
+    <div class="d-flex flex-row" id="title">
+        <div class="p-2">
+
+        <img  id="circuits_indi" src= "<?php echo $infos['url_photo']; ?>"  alt='photo du pays'>
+        </div>
+        <div class="p-2">
+        <h1 id="pilotes_title"> <?php echo $infos["name"];?></h1>
+    </div>
     </div>
 
-    <div>
-        <div class="container-fluid" id="stats" >
-            
-                    <h2> Statistiques </h2>
-                    <ul class='infos-pilotes'>
-                        <li> Localisation : <?php $rep = $bdd -> query("SELECT circuits.location, circuits.country FROM circuits WHERE circuits.circuitId=".$infos["circuitId"]); $nb = $rep -> fetch(); echo $nb[0];?> </li>
-                        <!-- Ajouter les coordonnées -->
-                        <li> Dernier grand prix accueilli : <?php $query = "SELECT races.name, races.raceId, races.date FROM races, circuits WHERE races.circuitId=circuits.circuitId AND circuits.circuitId=".$infos["circuitId"]." ORDER BY races.date DESC LIMIT 1";$rep = $bdd -> query($query);
-                        $nb = $rep -> fetch(); echo "<a id='lien' href='../gps/gp.php?id=".$nb[1]."'>".$nb[0]." (".$nb[2].") </a>";?> </li>
-                        
-                        
-                        <li> <a href="<?php echo $infos["url"] ?>" id="lien"> Wikipedia  <img src="../images/wikipedia.png" id="wiki"> </a> </li>
-                    </ul>
-             </div>
-				
-        <div class="container-fluid"  id="courses">
-                <h2> Top 3 des vainqueurs sur le circuit :</h2>                
-                <?php $rep = $bdd -> query("SELECT COUNT(results.position) AS nb, drivers.forename, drivers.surname FROM drivers, results, circuits, races WHERE results.driverId=drivers.driverId AND results.position=1 AND circuits.circuitId=races.circuitId AND races.raceId=results.raceId AND circuits.circuitId=".$infos["circuitId"]." GROUP BY drivers.driverId ORDER BY nb DESC LIMIT 3"); $nb = $rep -> fetchAll(); 
-                        echo "<table class='table'> <tr> <th> Nombre de victoires </th> <th> Pilote </th> </tr>";
-                        for($i=0; $i<count($nb); $i++){
-                          echo "<tr> <td>".$nb[$i]['nb']."</td><td>".$nb[$i]["forename"]." ".$nb[$i]["surname"]."</td></tr>";
-                        }
-                        ?> </table>
+    <div class="container-fluid" id="first" >
+        <div class="row">
+        <div class="col-lg-6" id="courses">
+        <p>
+            <?php $url = $infos["url"];
+                  require_once('../simple_html_dom.php');
+
+                  // Récupérer le contenu de la page Web
+                  $html = file_get_html($url);
+
+                  // Trouver tous les éléments HTML avec la classe "content"
+                  $elements = $html->find('p');
+
+
+                  $i=0;
+                  while($i<3){
+                    echo $elements[$i]->plaintext;
+                    echo "<br>";
+                    $i++;// changer le css balise a
+                  } ?>
+                  <a href= "<?php echo $url; ?>" >  Plus d'infos. </a>
+
+            </p>
         </div>
+
 				
+        <div class="col-lg-6" id="stats">
+         <?php $rep = $bdd -> query("SELECT circuits.url_photo FROM circuits WHERE circuits.circuitId=".$infos["circuitId"]); $nb = $rep -> fetch(); echo "<img id='img_cir_ind'src='".$nb['url_photo']."'>"; ?>
+        <ul class="list-group list-group-dark" data-bs-theme="dark">
+            <li class="list-group-item list-group-item-dark"> Localisation : <?php $rep = $bdd -> query("SELECT circuits.location, circuits.country FROM circuits WHERE circuits.circuitId=".$infos["circuitId"]); $nb = $rep -> fetch(); echo $nb[0].", ".$nb[1];?> </li>
+            <li class="list-group-item list-group-item-dark"> Latitude : <?php $rep = $bdd -> query("SELECT circuits.lat FROM circuits WHERE circuits.circuitId=".$infos["circuitId"]); $nb = $rep -> fetch(); echo $nb[0];?> </li>
+            <li class="list-group-item list-group-item-dark"> Longitude : <?php $rep = $bdd -> query("SELECT circuits.lng, circuits.country FROM circuits WHERE circuits.circuitId=".$infos["circuitId"]); $nb = $rep -> fetch(); echo $nb[0];?> </li>
+            <!-- Ajouter les coordonnées -->
+            <li class="list-group-item list-group-item-dark"> Dernier grand prix accueilli : <?php $query = "SELECT races.name, races.raceId, races.date FROM races, circuits WHERE races.circuitId=circuits.circuitId AND circuits.circuitId=".$infos["circuitId"]." ORDER BY races.date DESC LIMIT 1";$rep = $bdd -> query($query);
+            $nb = $rep -> fetch(); echo "<a id='lien' href='../gps/gp.php?id=".$nb[1]."'>".$nb[0]." (".$nb[2].") </a>";?> </li>
+
+        </ul>
+        </div>
     </div>
-   
-   
-   
-        
-    </div>
+</div>
+
+  <div class="container-fluid" id="courses">
+
+    <h2 id= "code">  Top 3 des vainqueurs sur le circuit :</h2>
+    <?php $rep = $bdd -> query("SELECT COUNT(results.position) AS nb, drivers.forename, drivers.surname FROM drivers, results, circuits, races WHERE results.driverId=drivers.driverId AND results.position=1 AND circuits.circuitId=races.circuitId AND races.raceId=results.raceId AND circuits.circuitId=".$infos["circuitId"]." GROUP BY drivers.driverId ORDER BY nb DESC LIMIT 3"); $nb = $rep -> fetchAll();
+    echo "<table class='table table-dark table-striped'> <tr class='table-dark'> <td class='table-dark'> Nombre de victoires </th> <td class='table-dark'> Pilote </th> </tr>";
+    for($i=0; $i<count($nb); $i++){
+      echo "<tr class='table-dark'> <td class='table-dark'>".$nb[$i]['nb']."</td><td>".$nb[$i]["forename"]." ".$nb[$i]["surname"]."</td></tr>";
+    }
+    ?>
+    </table>
+
+  </div>
 	
 	
 <!--

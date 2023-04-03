@@ -37,13 +37,13 @@
 
 		  <?php
 		  if (isset($_SESSION['utilisateur'])){
-		  	echo "".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom'];
-		  	}
+		  	echo "<p style='text-align:center'> Bonjour ".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom']."</p>";
+                        		 }
 		  ?>
 		  <a href="../utilisateur/favoris.php">Mes Favoris</a>
 		  <a href="../utilisateur/abonnement.php">Mes Abonnements</a>
 		  <a href="../parier.php">Parier</a>
-		  <a href="../bd.html">Base de Données</a>
+		  <a href="../bd.php">Base de Données</a>
 
 		  <?php
 		  if (!isset($_SESSION['utilisateur'])){
@@ -82,10 +82,10 @@
 			  <a class="nav-link" href="../constructeurs/constructeurs.php">Constructeurs</a>
 			</li>
 		  </ul>
-		  <form class="d-flex" action="../recherche.php" method="get">
-			<input class="form-control me-2" type="text" name="search" placeholder="Search">
-			<button class="btn btn-danger" type="submit">Search</button> 
-		  </form>
+		  <form class="d-flex">
+          			<input class="form-control me-2" action="../recherche.php" type="text" placeholder="Search">
+          			<button class="btn btn-danger" type="button">Search</button>
+          		  </form>
 
 		  
 		</div>

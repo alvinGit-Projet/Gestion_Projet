@@ -9,26 +9,11 @@
 </head>
 <body>
 
-<!-- 
-
-ALTER TABLE drivers ADD COLUMN description TEXT    => Idem pour circuits, constructors, races (là ou crawler)
-
-
--->
-
-
 <?php
 require("../fonction.php");
 $bdd = getBD();
 
 $q = "SELECT * FROM drivers WHERE drivers.driverId=1"; $rep = $bdd -> query($q); $ans = $rep -> fetch();
-
-
-if(isset($ans["description"]) && $ans["description"]!=NULL && $ans["description"]!=""){
-  echo $ans["description"];
-}
-else{
-
 
 
 $url = $ans["url"];
@@ -42,19 +27,10 @@ $elements = $html->find('p');
 
 
 $i=0;
-$txt = "";
-while($i<3){
-  $txt .= $elements[$i]->plaintext;
+while($i<5){
+  echo $elements[$i]->plaintext;
   $i++;
 }
-//echo $txt;
-
-$q = 'UPDATE drivers SET drivers.description="'.$txt.'" WHERE drivers.driverId = '.$ans["driverId"];
-echo $q;
-$rep = $bdd -> query($q);
-
-}
-
 
 /*
 // Parcourir les éléments et extraire leur texte brut

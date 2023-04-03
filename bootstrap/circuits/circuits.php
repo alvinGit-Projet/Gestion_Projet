@@ -43,8 +43,8 @@
 		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 		  <?php
 		  if (isset($_SESSION['utilisateur'])){
-			echo "<p style='text-align:center'> Bonjour ".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom']."</p>";
-		}
+		  	echo "<p style='text-align:center'> Bonjour ".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom']."</p>";
+                        		  	 	}
 		  ?>
 
 		  <a href="../utilisateur/favoris.php">Mes Favoris</a>
@@ -88,9 +88,9 @@
 			</li>
 		  </ul>
 		  
-		  <form class="d-flex" action="../recherche.php" method="get">
-			<input class="form-control me-2" type="text" name="search" placeholder="Search">
-			<button class="btn btn-danger" type="submit">Search</button> 
+		  <form class="d-flex">
+			<input class="form-control me-2" action="../recherche.php" type="text" placeholder="Search">
+			<button class="btn btn-danger" type="button">Search</button> 
 		  </form>
 		  
 		</div>
@@ -116,7 +116,7 @@ AND races.circuitId=circuits.circuitId";
     for($i=0; $i<$nb; $i++){
         echo "<div class='col-lg-6 col-sm-6'>\n";
         echo "<div class='row'>\n <div class='col-lg-4'><a href='./circuit.php?id=".$circuits[$i]["circuitId"]."'> \n";  //$pilotes[$i]["url_photo"]
-        echo "<img id='circuits' src='".$circuits[$i]["url_photo"]."' alt='photo du circuits'>\n</a></div>  <div class='col-lg-8'><a href='./pilote.php?id=".$circuits[$i]["circuitId"]."'> 
+        echo "<img id='circuits' src='".$circuits[$i]["url_photo"]."' alt='photo du circuits'>\n</a></div>  <div class='col-lg-8'><a href='./circuit.php?id=".$circuits[$i]["circuitId"]."'>
 		\n \n<p class='paragraphe'>".$circuits[$i]["name"]." à ".$circuits[$i]["location"].", ".$circuits[$i]["country"]."</p></a> \n</div>\n";echo "</div> \n</div>\n" ; 
         if($i%2==1 && $i!=$nb-1 && $i!=0){
             echo "</div> <div class='row'>";
