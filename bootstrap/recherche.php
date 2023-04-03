@@ -160,14 +160,38 @@
 		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
 		  <?php
+      $loged = false;
 		  if (isset($_SESSION['utilisateur'])){
-            echo "<p style='text-align:center'> Bonjour ".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom']."</p>";
-        }
+		  	echo "<p style='text-align:center'> Bonjour ".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom']."</p>";
+        $loged = true;
+      }
 		  ?>
-		  <a href="./utilisateur/favoris.php">Mes Favoris</a>
-		  <a href="./utilisateur/abonnement.php">Mes Abonnements</a>
-		  <a href="./utilisateur/parier.php">Parier</a>
-		  <a href="./bd.php">Base de Données</a>
+		  <a href="utilisateur/favoris.php" id="fav">Mes Favoris</a>
+		  <a href="utilisateur/abonnement.php" id="abon">Mes Abonnements</a>
+		  <a href="utilisateur/parier.php">Parier</a>
+		  <a href="bd.php">Base de Données</a>
+
+      <script>
+        let loged = <?php if(isset($_SESSION['utilisateur'])){ echo "true"; }else{ echo "false";}?>;
+        if(!loged){
+           $("#fav").click(function(event){
+            event.preventDefault();
+            let bool = confirm("Vous devez être connecté pour accéder à vos favoris, souhaitez vous être redirigé vers une page de connexion?");
+            if(bool){
+                window.location.href="utilisateur/connexion.php";
+              }
+           });
+           $("#abon").click(function(event){
+            event.preventDefault();
+            let bool = confirm("Vous devez être connecté pour accéder à vos abonnements, souhaitez vous être redirigé vers une page de connexion?");
+            if(bool){
+                window.location.href="utilisateur/connexion.php";
+              }
+           })
+        }
+       
+      </script>
+
 
 		  <?php
 		  if (!isset($_SESSION['utilisateur'])){
@@ -176,8 +200,7 @@
 		  	}
 		  else{
 		  	echo '<a href="./utilisateur/deconnexion.php"> deconnexion </a>';
-		  	}
-		  	
+		  	}	
 		  ?>
 
 		  <!-- redirection vers ./utilisateur/inscription.php -->
@@ -208,9 +231,9 @@
 		  </ul>
 		  
 		  <form class="d-flex" action="recherche.php" method="get">
-			<input class="form-control me-2" type="text" name="search" placeholder="Search">
-			<button class="btn btn-danger" type="submit">Search</button> 
-		  </form>
+      	<input class="form-control me-2" type="text" placeholder="Search" name="search">
+        <button class="btn btn-danger" type="submit">Search</button>
+      </form>
 		  
 		</div>
 	  </div>

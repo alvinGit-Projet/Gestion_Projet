@@ -18,9 +18,8 @@
         $bdd = getBD();
         // On va générer les abonnements du client connecté = récupération de l'id Session
         if(!isset($_SESSION['client']['id'])){ 
-        //   echo "<meta http-equiv='refresh'  content='0; URL=../accueil.php'>";
-         //   die("Vous n'êtes pas censé arriver ici, retour page d'accueil");
-            echo "autorisation exceptionnelle"; 
+          echo "<meta http-equiv='refresh'  content='0; URL=../index.php'>";
+          die("Vous n'êtes pas censé arriver ici, retour page d'accueil");
         } 
         else{
             $id=$_SESSION['client']['id'];  // ou email_adress et il ne reste plus qu'à utiliser $id dans les requêtes ci-dessous
@@ -103,10 +102,10 @@
 			</li>
 		  </ul>
 		  
-		  <form class="d-flex">
-			<input class="form-control me-2" action="../recherche.php" type="text" placeholder="Search">
-			<button class="btn btn-danger" type="button">Search</button> 
-		  </form>
+		  <form class="d-flex" action="../recherche.php" method="get">
+      	<input class="form-control me-2" type="text" placeholder="Search" name="search">
+        <button class="btn btn-danger" type="submit">Search</button>
+      </form>
 		  
 		</div>
 	  </div>

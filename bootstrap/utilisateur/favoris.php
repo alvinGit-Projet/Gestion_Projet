@@ -5,6 +5,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">  
     <link rel="stylesheet" href="../style_in.css" type="text/css">
     <link rel="stylesheet" href="../pilotes/pilote.css" type="text/css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+
 
 	
 		 <script>
@@ -40,21 +42,8 @@
             }
         }
         else{
-    //        die("Vous devez être connecté pour accéder à cette page");
-    echo "connexion exceptionnelle";
-            $query1 = "SELECT liker_pilote.driverId FROM liker_pilote WHERE liker_pilote.email_adress='a'";
-            $query2 = "SELECT liker_constructor.constructorId FROM liker_constructor WHERE liker_constructor.email_adress='a'";
-
-            $statement1 = $bdd -> prepare($query1); $statement2 = $bdd -> prepare($query2);
-
-            $rep1 = $statement1 -> execute(); $rep2 = $statement2 -> execute();
-            if($rep1 && $rep2){
-                $pilotes=$statement1 -> fetchAll();
-                $constructeurs=$statement2 -> fetchAll();
-            }
-            else{
-                die("smth went wrong");
-            }
+            echo '<meta http-equiv="refresh"  content="0; URL=./connexion.php?error=nonregistered">';
+            die("Vous devez être connecté pour accéder à cette page");
         }
     ?>
 
@@ -71,14 +60,36 @@
 		<div id="mySidebar" class="sidebar">
 		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 		  <?php
+      $loged = false;
 		  if (isset($_SESSION['utilisateur'])){
-		  	echo "".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom'];
-		  	}
+		  	echo "<p style='text-align:center'> Bonjour ".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom']."</p>";
+        $loged = true;
+      }
 		  ?>
-		  <a href="favoris.php">Mes Favoris</a>
-		  <a href="abonnement.php">Mes Abonnements</a>
-		  <a href="parier.php">Parier</a>
-		  <a href="../bd.php">Base de Données</a>
+		  <a href="./utilisateur/favoris.php" id="fav">Mes Favoris</a>
+		  <a href="./utilisateur/abonnement.php" id="abon">Mes Abonnements</a>
+		  <a href="./utilisateur/parier.php">Parier</a>
+		  <a href="./bd.php">Base de Données</a>
+
+      <script>
+        let loged = <?php if(isset($_SESSION['utilisateur'])){ echo "true"; }else{ echo "false";}?>;
+        if(!loged){
+           $("#fav").click(function(event){
+            event.preventDefault();
+            let bool = confirm("Vous devez être connecté pour accéder à vos favoris, souhaitez vous être redirigé vers une page de connexion?");
+            if(bool){
+                window.location.href="./utilisateur/connexion.php";
+              }
+           });
+           $("#abon").click(function(event){
+            event.preventDefault();
+            let bool = confirm("Vous devez être connecté pour accéder à vos abonnements, souhaitez vous être redirigé vers une page de connexion?");
+            if(bool){
+                window.location.href="./utilisateur/connexion.php";
+              }
+           })
+        }
+      </script>
 		  <?php
 		  if (!isset($_SESSION['utilisateur'])){
 		  	echo '<a href="inscription.php"> Inscription </a>';
@@ -116,10 +127,10 @@
 			</li>
 		  </ul>
 		  
-		  <form class="d-flex">
-			<input class="form-control me-2" type="text" placeholder="Search">
-			<button class="btn btn-danger" type="button">Search</button> 
-		  </form>
+		  <form class="d-flex" action="../recherche.php" method="get">
+      	<input class="form-control me-2" type="text" placeholder="Search" name="search">
+        <button class="btn btn-danger" type="submit">Search</button>
+      </form>
 		  
 		</div>
 	  </div>
