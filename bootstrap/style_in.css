@@ -294,6 +294,11 @@ btn_telechargement{
 }
 
 
+
+.darkmode{
+    color: #141617;
+}
+
 /*BASE DE DONNES */
 #bd-descr{
     width: 100%;

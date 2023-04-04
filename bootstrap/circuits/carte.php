@@ -36,7 +36,7 @@
             require("../fonction.php");
             $bdd=getBD();
 
-            $q = "SELECT circuits.lat, circuits.lng, circuits.name, circuits.location, circuits.country FROM circuits";
+            $q = "SELECT circuits.circuitId, circuits.lat, circuits.lng, circuits.name, circuits.location, circuits.country FROM circuits";
             $statement=$bdd->prepare($q);
             $rep = $statement -> execute();
             $circuits = $statement -> fetchAll();
@@ -153,10 +153,10 @@
 
           <ul class="list-unstyled mb-0">
             <li>
-              <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i>L'université</a>
+              <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i> Rapport Du Projet </a>
             </li>
             <li>
-              <a href="#!" class="text-white"><i class="fas fa-user-edit fa-fw fa-sm me-2"></i>Contactez-Nous</a>
+              <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i> La Vidéo de Présentation</a>
             </li>
           </ul>
         </div>
@@ -169,10 +169,12 @@
 
           <ul class="list-unstyled">
             <li>
-              <a href="https://ufr6.www.univ-montp3.fr/fr/licence_miashs" class="text-white"><i class="fas fa-at fa-fw fa-sm me-2"></i> Licence MIASHS</a>
-            </li>            <li>
-              <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i>Notre Rapport</a>
+              <a href="https://ufr6.www.univ-montp3.fr/fr/licence_miashs" class="text-white"><i class="fas fa-at fa-fw fa-sm me-2"></i> La Licence MIASHS</a>
             </li>
+            <li>
+              <a href="https://www.univ-montp3.fr/" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i>L'Université Paul Valéry </a>
+            </li>
+
 
 
           </ul>
@@ -185,8 +187,8 @@
 
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-      © 2021 Copyright:
-      <a class="text-white" href="https://mdbootstrap.com/"> Tous Droits réservés</a>
+      © 2023 Copyright:
+      <a class="text-white" href=""> Tous Droits réservés</a>
     </div>
     <!-- Copyright -->
   </footer>
@@ -204,20 +206,18 @@
 
     // Add a tile layer (we'll use OpenStreetMap)
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: 'L\'ecurie des Statistiques <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
-      maxZoom: 18,
+      attribution: 'L\'écurie des Statistiques <a href="https://openstreetmap.org">OpenStreetMap</a> contributors',
+      maxZoom: 28,
     }).addTo(map);
 
-    var liste = <?php echo $liste_json;?> ;
+    var liste = <?php echo $liste_json;?>;
     console.log(liste);
 
-    for (let i = 0; i < liste.length; i++) {
-
+    for (let i = 0; i < liste.length; i++){
     L.marker([liste[i].lat, liste[i].lng]).addTo(map)
-            .bindPopup(liste[i].name+", "+ liste[i].location+" ("+liste[i].country+")").openPopup();
+            .bindPopup("<a href=./circuit.php?id="+liste[i].circuitId+">"+liste[i].name+"</a>"+", "+ liste[i].location+" ("+liste[i].country+")").openPopup();
     }
 
 
 
 </script>
-

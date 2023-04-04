@@ -16,7 +16,8 @@
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"> </script>
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 
         <!-- Include in <head> to load fonts from Google -->
         <link href='https://fonts.googleapis.com/css?family=Lato:100italic' rel='stylesheet' type='text/css'>
@@ -196,6 +197,116 @@
 </div>
 	
 	
+<div>
+
+<?php
+
+    $sqlQuery = "SELECT COUNT(*) as victoire, drivers.surname
+                 FROM results, drivers
+                 WHERE results.driverId=drivers.driverId
+                 AND results.position=1
+                 GROUP BY results.driverId
+                 ORDER BY victoire DESC";
+    $statement=$bdd->prepare($sqlQuery);
+    $rep = $statement -> execute();
+    $result = $statement -> fetchAll();
+
+    $data = [];
+
+    foreach ($result as $row) {
+        $data[] = $row;
+    }
+
+
+    $dataset = array();
+    $labels = array();
+    for($i=0; $i<count($data); $i++){
+        array_push($dataset, $data[$i]["victoire"]);
+        array_push($labels, $data[$i]["surname"]);
+    }
+
+?>
+<center>
+<div class="graphique" >
+  <canvas id="graph1"></canvas>
+</div>
+</center>
+
+
+<script>
+
+    const data = {
+      labels: [<?php for($i=0; $i<count($labels); $i++){
+       if($i+1<count($labels)){
+         echo '"'.$labels[$i].'", ';
+        }
+        else{
+            echo '"'.$labels[$i].'"';
+        }
+        } ?>],
+        datasets: [{
+            label: "Nombre",
+            data: [<?php for($i=0; $i<count($dataset); $i++){
+       if($i+1<count($dataset)){
+         echo '"'.$dataset[$i].'", ';
+        }
+        else{
+            echo '"'.$dataset[$i].'"';
+        }
+        } ?>],
+        fill: true,
+        backgroundColor: [
+                        'rgb(54, 162, 235)',
+                    ],
+
+
+        }]
+      };
+
+
+
+     const ctx = document.getElementById('graph1');
+
+      new Chart(graph1,  {
+        type: 'bar',
+        data: data,
+        options: {
+         indexAxis: 'y',
+         responsive: true,
+          elements: {
+            line: {
+              borderWidth: 3
+            }
+          }
+        },
+        scales: {
+              x: {
+                min: -100,
+                max: 100,
+              },
+              y: {
+                min: -100,
+                max: 100,
+              }
+            }
+      });
+
+
+
+
+
+    </script>
+
+
+</div>
+
+
+
+
+
+
+
+
 
 
 
@@ -235,7 +346,7 @@
             <li>
               <a href="https://ufr6.www.univ-montp3.fr/fr/licence_miashs" class="text-white"><i class="fas fa-at fa-fw fa-sm me-2"></i> Licence MIASHS</a>
             </li>            <li>
-              <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i>Notre Rapport</a>
+              <a href="test.php" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i>Notre Rapport</a>
             </li>
 
 
