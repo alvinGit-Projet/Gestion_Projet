@@ -106,7 +106,7 @@
             }
 
             // Il reste à trier et extraire le top 8?
-            $top8 = extractionTop($tops10, 8);
+            $top8 = extractionTop($tops10, 4);
 
 
             return $top8;

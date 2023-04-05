@@ -176,10 +176,73 @@
 
     </div>
 
-    <script>
+
+
+<!-- FOOTER -->
+
+  <footer class="bg-dark text-center text-lg-start text-white">
+    <!-- Grid container -->
+    <div class="container p-4">
+      <!--Grid row-->
+      <div class="row mt-4">
+	  <div class="col-lg-3">
+	  </div>
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase"> Informations</h5>
+
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i> Rapport Du Projet </a>
+            </li>
+            <li>
+              <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i> La Vidéo de Présentation</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Notre Formation</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <a href="https://ufr6.www.univ-montp3.fr/fr/licence_miashs" class="text-white"><i class="fas fa-at fa-fw fa-sm me-2"></i> La Licence MIASHS</a>
+            </li>
+            <li>
+              <a href="https://www.univ-montp3.fr/" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i>L'Université Paul Valéry </a>
+            </li>
+
+
+
+          </ul>
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+      © 2023 Copyright: Tous Droits réservés
+    </div>
+    <!-- Copyright -->
+  </footer>
+
+
+<!-- End of .container -->
+
+    
+</body>
+</html>
+
+ <script>
         let vide = 1;
         $(".ligne-pilote").click(function(){
-                        
+
         if(vide==1){
             $("#p1").html("Pilote 1 : "+this.innerHTML);
             vide=2;
@@ -193,21 +256,21 @@
         function vider(element){
             var txt = $(element).html();
             if(txt[7]=="1"){
-                $(element).html("Pilote 1 : ");  
+                $(element).html("Pilote 1 : ");
             }
             else{
-                $(element).html("Pilote 2 : ");  
+                $(element).html("Pilote 2 : ");
             }
         }
 
         $("#p1").click(function(){
-            $(this).html("Pilote 1 : "); 
-            vide=1; 
+            $(this).html("Pilote 1 : ");
+            vide=1;
         });
 
         $("#p2").click(function(){
-            $(this).html("Pilote 2 : "); 
-            vide=2; 
+            $(this).html("Pilote 2 : ");
+            vide=2;
         });
 
         $("#comparaison").click(function(){
@@ -227,9 +290,3 @@
 
 
                 </script>
-
-
-
-    
-</body>
-</html>

@@ -4,7 +4,6 @@
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 		<link rel="stylesheet" href="../pilotes/pilote.css" type="text/css">
-		<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 
 	  <title>Constructeurs</title>
 	  
@@ -43,37 +42,14 @@
 		<div id="mySidebar" class="sidebar">
 		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 		  <?php
-      $loged = false;
 		  if (isset($_SESSION['utilisateur'])){
 		  	echo "<p style='text-align:center'> Bonjour ".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom']."</p>";
-        $loged = true;
-      }
+            		  	}
 		  ?>
-		  <a href="../utilisateur/favoris.php" id="fav">Mes Favoris</a>
-		  <a href="../utilisateur/abonnement.php" id="abon">Mes Abonnements</a>
+		  <a href="../utilisateur/favoris.php">Mes Favoris</a>
+		  <a href="../utilisateur/abonnement.php">Mes Abonnements</a>
 		  <a href="../utilisateur/parier.php">Parier</a>
 		  <a href="../bd.php">Base de Données</a>
-
-      <script>
-        let loged = <?php if(isset($_SESSION['utilisateur'])){ echo "true"; }else{ echo "false";}?>;
-        if(!loged){
-           $("#fav").click(function(event){
-            event.preventDefault();
-            let bool = confirm("Vous devez être connecté pour accéder à vos favoris, souhaitez vous être redirigé vers une page de connexion?");
-            if(bool){
-                window.location.href="../utilisateur/connexion.php";
-              }
-           });
-           $("#abon").click(function(event){
-            event.preventDefault();
-            let bool = confirm("Vous devez être connecté pour accéder à vos abonnements, souhaitez vous être redirigé vers une page de connexion?");
-            if(bool){
-                window.location.href="../utilisateur/connexion.php";
-              }
-           })
-        }
-       
-      </script>
 		  <?php
 		  if (!isset($_SESSION['utilisateur'])){
 		  	echo '<a href="../utilisateur/inscription.php"> Inscription </a>';
@@ -111,10 +87,10 @@
 			</li>
 		  </ul>
 		  
-		  <form class="d-flex" action="../recherche.php" method="get">
-      	<input class="form-control me-2" type="text" placeholder="Search" name="search">
-        <button class="btn btn-danger" type="submit">Search</button>
-      </form>
+		  <form class="d-flex" action="recherche.php" method="get">
+                    <input class="form-control me-2" type="text" placeholder="Search" name="search">
+                  <button class="btn btn-danger" type="submit">Search</button>
+                </form>
 		  
 		</div>
 	  </div>
@@ -130,7 +106,7 @@
 
 	
 	
-<?php // requete pilote de la saison en cours + drivers.url_photo
+<?php
     $query = "SELECT DISTINCT constructors.constructorId, constructors.name, constructors.nationality, constructors.url_photo
 FROM constructors, seasons, races, results 
 WHERE races.year=(SELECT seasons.year FROM seasons ORDER BY seasons.year DESC LIMIT 1) 
@@ -234,10 +210,10 @@ AND races.raceId=results.raceId AND results.constructorId=constructors.construct
     	}
     	else{
 
-    	echo "<h2> Constructeurs les plus consultés : </h2>";
+    	echo "<h3> Constructeurs les plus consultés : </h3>";
 
     	// recommandation par les plus consultés
-    	$mostvisited = "SELECT * FROM constructors ORDER BY constructors.visites DESC LIMIT 8";
+    	$mostvisited = "SELECT * FROM constructors ORDER BY constructors.visites DESC LIMIT 4";
     	$rep = $bdd -> query($mostvisited); $top8=$rep -> fetchAll();
 
     	echo "<div class='container'> <div class='row'>";
@@ -254,10 +230,10 @@ AND races.raceId=results.raceId AND results.constructorId=constructors.construct
     	}
     	echo "</div></div>";
     }
-    	echo "<h2> Sélection aléatoire de Constructeurs :</h2>";
+    	echo "<h3> Sélection aléatoire de Constructeurs :</h3>";
 
     	// recommandation par random
-    	$randomq = "SELECT * FROM constructors ORDER BY RAND() LIMIT 8";
+    	$randomq = "SELECT * FROM constructors ORDER BY RAND() LIMIT 4";
     	$rep2 = $bdd -> query($randomq); $rand8=$rep2 -> fetchAll();
 
     	echo "<div class='container'> <div class='row'>";
@@ -294,10 +270,10 @@ AND races.raceId=results.raceId AND results.constructorId=constructors.construct
 
           <ul class="list-unstyled mb-0">
             <li>
-              <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i>L'université</a>
+              <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i> Rapport Du Projet </a>
             </li>
             <li>
-              <a href="#!" class="text-white"><i class="fas fa-user-edit fa-fw fa-sm me-2"></i>Contactez-Nous</a>
+              <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i> La Vidéo de Présentation</a>
             </li>
           </ul>
         </div>
@@ -310,10 +286,12 @@ AND races.raceId=results.raceId AND results.constructorId=constructors.construct
 
           <ul class="list-unstyled">
             <li>
-              <a href="https://ufr6.www.univ-montp3.fr/fr/licence_miashs" class="text-white"><i class="fas fa-at fa-fw fa-sm me-2"></i> Licence MIASHS</a>
-            </li>            <li>
-              <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i>Notre Rapport</a>
+              <a href="https://ufr6.www.univ-montp3.fr/fr/licence_miashs" class="text-white"><i class="fas fa-at fa-fw fa-sm me-2"></i> La Licence MIASHS</a>
             </li>
+            <li>
+              <a href="https://www.univ-montp3.fr/" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i>L'Université Paul Valéry </a>
+            </li>
+
 
 
           </ul>
@@ -326,15 +304,13 @@ AND races.raceId=results.raceId AND results.constructorId=constructors.construct
 
     <!-- Copyright -->
     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-      © 2021 Copyright:
-      <a class="text-white" href="https://mdbootstrap.com/"> Tous Droits réservés</a>
+      © 2023 Copyright: Tous Droits réservés
     </div>
     <!-- Copyright -->
   </footer>
 
 
 <!-- End of .container -->
-	
 	
 	
 	

@@ -5,7 +5,7 @@
      
 <?php
 function getBD(){
-     $bdd = new PDO("mysql:host=localhost;dbname=f1;charset=utf8", "root", "");
+     $bdd = new PDO("mysql:host=localhost;dbname=formula1;charset=utf8", "root", "");
      return $bdd;
 }
 

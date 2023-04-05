@@ -5,6 +5,59 @@ body{
 	width:auto;
 }
 
+/*POLICE*/
+h1 {
+color: #ECECEC;
+font-family: ' Helvetica ', sans-serif;
+font-size: 75px; font-weight: bold;
+letter-spacing: -1px;
+line-height: 1;
+margin: 0 0 20px;
+text-align: center;
+text-shadow: black 2px 1px
+}
+
+#name_pilote{
+text-align: right;
+}
+
+h5{
+padding-bottom:5px;
+text-align: center;
+color: #ECECEC;
+}
+h4{
+padding-bottom:15px;
+
+}
+
+
+h2 {
+color: #ECECEC;
+font-family: 'Helvetica', sans-serif;
+font-weight: bold;
+font-size: 40px;
+line-height: 32px;
+margin: 0 0 55px;
+text-align: center;
+padding-top:35px;
+}
+
+h3 {
+color: #ECECEC;
+font-family: ' Helvetica ', sans-serif;
+font-size: 30px;
+font-weight: bold;
+padding-top:20px;
+padding-left:10px;
+padding-right:10px;
+line-height: 32px;
+margin: 0 0 55px;
+text-align: center;
+}
+
+
+
 .row a{ 
 color:black; 
 text-decoration:none;
@@ -14,6 +67,12 @@ text-decoration:none;
 .paragraphe{ 
 margin-top:40px;
 margin-left:60px;
+}
+
+.paragraphe2{
+margin-top:10px;
+margin-left:30px;
+margin-bottom:25px;
 }
 
 .btn_modif{

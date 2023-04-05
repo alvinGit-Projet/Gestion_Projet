@@ -4,7 +4,6 @@
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
 		<link rel="stylesheet" href="../pilotes/pilote.css" type="text/css">
-		<script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 	  
 	  <title>Circuits</title>
 	  
@@ -43,37 +42,15 @@
 		<div id="mySidebar" class="sidebar">
 		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 		  <?php
-      $loged = false;
 		  if (isset($_SESSION['utilisateur'])){
 		  	echo "<p style='text-align:center'> Bonjour ".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom']."</p>";
-        $loged = true;
-      }
+                        		  	 	}
 		  ?>
-		  <a href="../utilisateur/favoris.php" id="fav">Mes Favoris</a>
-		  <a href="../utilisateur/abonnement.php" id="abon">Mes Abonnements</a>
-		  <a href="../utilisateur/parier.php">Parier</a>
-		  <a href="../bd.php">Base de Données</a>
 
-      <script>
-        let loged = <?php if(isset($_SESSION['utilisateur'])){ echo "true"; }else{ echo "false";}?>;
-        if(!loged){
-           $("#fav").click(function(event){
-            event.preventDefault();
-            let bool = confirm("Vous devez être connecté pour accéder à vos favoris, souhaitez vous être redirigé vers une page de connexion?");
-            if(bool){
-                window.location.href="../utilisateur/connexion.php";
-              }
-           });
-           $("#abon").click(function(event){
-            event.preventDefault();
-            let bool = confirm("Vous devez être connecté pour accéder à vos abonnements, souhaitez vous être redirigé vers une page de connexion?");
-            if(bool){
-                window.location.href="../utilisateur/connexion.php";
-              }
-           })
-        }
-       
-      </script>
+		  <a href="../utilisateur/favoris.php">Mes Favoris</a>
+		  <a href="../utilisateur/abonnement.php">Mes Abonnements</a>
+		  <a href="../utilisateur/parier.php">Parier</a>
+		  <a href="../bd.html">Base de Données</a>
 		  <?php
 		  if (!isset($_SESSION['utilisateur'])){
 		  	echo '<a href="../utilisateur/inscription.php"> Inscription </a>';
@@ -111,10 +88,10 @@
 			</li>
 		  </ul>
 		  
-		  <form class="d-flex" action="../recherche.php" method="get">
-      	<input class="form-control me-2" type="text" placeholder="Search" name="search">
-        <button class="btn btn-danger" type="submit">Search</button>
-      </form>
+		  <form class="d-flex" action="recherche.php" method="get">
+                    <input class="form-control me-2" type="text" placeholder="Search" name="search">
+                  <button class="btn btn-danger" type="submit">Search</button>
+                </form>
 		  
 		</div>
 	  </div>
@@ -155,7 +132,62 @@ AND races.circuitId=circuits.circuitId";
 	
 	
 	
+<!-- FOOTER -->
 
+  <footer class="bg-dark text-center text-lg-start text-white">
+    <!-- Grid container -->
+    <div class="container p-4">
+      <!--Grid row-->
+      <div class="row mt-4">
+	  <div class="col-lg-3">
+	  </div>
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase"> Informations</h5>
+
+          <ul class="list-unstyled mb-0">
+            <li>
+              <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i> Rapport Du Projet </a>
+            </li>
+            <li>
+              <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i> La Vidéo de Présentation</a>
+            </li>
+          </ul>
+        </div>
+        <!--Grid column-->
+
+
+        <!--Grid column-->
+        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+          <h5 class="text-uppercase">Notre Formation</h5>
+
+          <ul class="list-unstyled">
+            <li>
+              <a href="https://ufr6.www.univ-montp3.fr/fr/licence_miashs" class="text-white"><i class="fas fa-at fa-fw fa-sm me-2"></i> La Licence MIASHS</a>
+            </li>
+            <li>
+              <a href="https://www.univ-montp3.fr/" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i>L'Université Paul Valéry </a>
+            </li>
+
+
+
+          </ul>
+        </div>
+        <!--Grid column-->
+      </div>
+      <!--Grid row-->
+    </div>
+    <!-- Grid container -->
+
+    <!-- Copyright -->
+    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+      © 2023 Copyright: Tous Droits réservés
+    </div>
+    <!-- Copyright -->
+  </footer>
+
+
+<!-- End of .container -->
 
 
 </body>

@@ -60,36 +60,15 @@
 		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 
 		  <?php
-      $loged = false;
 		  if (isset($_SESSION['utilisateur'])){
 		  	echo "<p style='text-align:center'> Bonjour ".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom']."</p>";
-        $loged = true;
-      }
+                        		 }
 		  ?>
-		  <a href="./utilisateur/favoris.php" id="fav">Mes Favoris</a>
-		  <a href="./utilisateur/abonnement.php" id="abon">Mes Abonnements</a>
+		  <a href="./utilisateur/favoris.php">Mes Favoris</a>
+		  <a href="./utilisateur/abonnement.php">Mes Abonnements</a>
 		  <a href="./utilisateur/parier.php">Parier</a>
 		  <a href="./bd.php">Base de Données</a>
 
-      <script>
-        let loged = <?php if(isset($_SESSION['utilisateur'])){ echo "true"; }else{ echo "false";}?>;
-        if(!loged){
-           $("#fav").click(function(event){
-            event.preventDefault();
-            let bool = confirm("Vous devez être connecté pour accéder à vos favoris, souhaitez vous être redirigé vers une page de connexion?");
-            if(bool){
-                window.location.href="./utilisateur/connexion.php";
-              }
-           });
-           $("#abon").click(function(event){
-            event.preventDefault();
-            let bool = confirm("Vous devez être connecté pour accéder à vos abonnements, souhaitez vous être redirigé vers une page de connexion?");
-            if(bool){
-                window.location.href="./utilisateur/connexion.php";
-              }
-           })
-        }
-      </script>
 		  <?php
 		  if (!isset($_SESSION['utilisateur'])){
 		  	echo '<a href="./utilisateur/inscription.php"> Inscription </a>';
@@ -125,9 +104,9 @@
 			</li>
 		  </ul>
 		  <form class="d-flex" action="recherche.php" method="get">
-      	<input class="form-control me-2" type="text" placeholder="Search" name="search">
-        <button class="btn btn-danger" type="submit">Search</button>
-      </form>
+                    <input class="form-control me-2" type="text" placeholder="Search" name="search">
+                  <button class="btn btn-danger" type="submit">Search</button>
+                </form>
 		  
 
 		</div>
@@ -246,12 +225,112 @@
         array_push($labels, $data[$i]["surname"]);
     }
 
+
+
+        $sqlQuery2 = "SELECT COUNT(*) as victoire, results.constructorId, constructors.name as constructor
+                 FROM results, constructors
+                 WHERE results.constructorId=constructors.constructorId
+                 AND results.position=1
+                 GROUP BY results.constructorId
+                 ORDER BY victoire DESC
+                 LIMIT 5";
+    $statement2 = $bdd->prepare($sqlQuery2);
+    $rep2 = $statement2->execute();
+    $result2 = $statement2->fetchAll();
+
+    $data2 = array();
+
+    foreach ($result2 as $row2) {
+        $data2[] = array(
+            "victoire" => $row2["victoire"],
+            "constructor" => $row2["constructor"]
+        );
+    }
+
+    $dataset2 = array();
+    $labels2 = array();
+    foreach ($data2 as $row2) {
+        array_push($dataset2, $row2["victoire"]);
+        array_push($labels2, $row2["constructor"]);
+    }
+
+
 ?>
+
+
 <center>
 <div class="graphique" >
   <canvas id="graph1"></canvas>
 </div>
 </center>
+
+<center>
+    <div class="graphique2">
+        <canvas id="graph2"></canvas>
+    </div>
+</center>
+
+
+<!-- FOOTER -->
+
+   <footer class="bg-dark text-center text-lg-start text-white">
+     <!-- Grid container -->
+     <div class="container p-4">
+       <!--Grid row-->
+       <div class="row mt-4">
+ 	  <div class="col-lg-3">
+ 	  </div>
+         <!--Grid column-->
+         <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+           <h5 class="text-uppercase"> Informations</h5>
+
+           <ul class="list-unstyled mb-0">
+             <li>
+               <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i> Rapport Du Projet </a>
+             </li>
+             <li>
+               <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i> La Vidéo de Présentation</a>
+             </li>
+           </ul>
+         </div>
+         <!--Grid column-->
+
+
+         <!--Grid column-->
+         <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
+           <h5 class="text-uppercase">Notre Formation</h5>
+
+           <ul class="list-unstyled">
+             <li>
+               <a href="https://ufr6.www.univ-montp3.fr/fr/licence_miashs" class="text-white"><i class="fas fa-at fa-fw fa-sm me-2"></i> La Licence MIASHS</a>
+             </li>
+             <li>
+               <a href="https://www.univ-montp3.fr/" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i>L'Université Paul Valéry </a>
+             </li>
+
+
+
+           </ul>
+         </div>
+         <!--Grid column-->
+       </div>
+       <!--Grid row-->
+     </div>
+     <!-- Grid container -->
+
+     <!-- Copyright -->
+     <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
+       © 2023 Copyright: Tous Droits réservés
+     </div>
+     <!-- Copyright -->
+   </footer>
+
+
+ <!-- End of .container -->
+	</body>
+
+	
+</html>
 
 
 <script>
@@ -266,7 +345,7 @@
         }
         } ?>],
         datasets: [{
-            label: "Nombre",
+            label: "Nombre De Victoire",
             data: [<?php for($i=0; $i<count($dataset); $i++){
        if($i+1<count($dataset)){
          echo '"'.$dataset[$i].'", ';
@@ -293,12 +372,17 @@
         data: data,
         options: {
          indexAxis: 'y',
-         responsive: true,
           elements: {
             line: {
-              borderWidth: 3
+              borderWidth: 7
             }
-          }
+          },
+          plugins: {
+                      title: {
+                          display: true,
+                          text: 'Les 10 pilotes les plus victorieux depuis 2010. '
+                      }
+                  }
         },
         scales: {
               x: {
@@ -314,88 +398,44 @@
 
 
 
+    const data2 = {
+        labels: <?php echo json_encode($labels2); ?>,
+        datasets: [{
+            label: 'Victoires par constructeur',
+            data: <?php echo json_encode($dataset2); ?>,
+            backgroundColor: [
+                'rgb(255, 99, 132)',
+                'rgb(54, 162, 235)',
+                'rgb(210, 295, 86)',
+                'rgb(200, 205, 07)',
+                'rgb(99, 102, 56)'
+            ],
+            hoverOffset: 5
+        }]
+    };
+
+    const config = {
+        type: 'doughnut',
+        data: data2,
+        options: {
+        responsive:true,
+        maintainAspectRatio: true,
+          plugins: {
+                      title: {
+                          display: true,
+                          text: 'Les 5 constructeurs les plus victorieux depuis 2010. '
+                      }
+                  }
+        }
+    };
+
+    var myChart = new Chart(
+        document.getElementById('graph2'),
+        config
+    );
+</script>
 
 
-    </script>
-
-
-</div>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-<!-- FOOTER -->
-
-  <footer class="bg-dark text-center text-lg-start text-white">
-    <!-- Grid container -->
-    <div class="container p-4">
-      <!--Grid row-->
-      <div class="row mt-4">
-	  <div class="col-lg-3">
-	  </div>
-        <!--Grid column-->
-        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-          <h5 class="text-uppercase"> Informations</h5>
-
-          <ul class="list-unstyled mb-0">
-            <li>
-              <a href="#!" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i>L'université</a>
-            </li>
-            <li>
-              <a href="#!" class="text-white"><i class="fas fa-user-edit fa-fw fa-sm me-2"></i>Contactez-Nous</a>
-            </li>
-          </ul>
-        </div>
-        <!--Grid column-->
-
-
-        <!--Grid column-->
-        <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
-          <h5 class="text-uppercase">Notre Formation</h5>
-
-          <ul class="list-unstyled">
-            <li>
-              <a href="https://ufr6.www.univ-montp3.fr/fr/licence_miashs" class="text-white"><i class="fas fa-at fa-fw fa-sm me-2"></i> Licence MIASHS</a>
-            </li>            <li>
-              <a href="test.php" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i>Notre Rapport</a>
-            </li>
-
-
-          </ul>
-        </div>
-        <!--Grid column-->
-      </div>
-      <!--Grid row-->
-    </div>
-    <!-- Grid container -->
-
-    <!-- Copyright -->
-    <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2)">
-      © 2021 Copyright:
-      <a class="text-white" href="https://mdbootstrap.com/"> Tous Droits réservés</a>
-    </div>
-    <!-- Copyright -->
-  </footer>
-
-
-<!-- End of .container -->
-
-
-<!-- End of .container -->
-	</body>
-	
-	
-	
-	
-	
-</html>	
