@@ -6,8 +6,9 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  
-	<link rel="stylesheet" href="../style_in.css" type="text/css">
+    <script src="./liker.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+	  <link rel="stylesheet" href="../style_in.css" type="text/css">
     <link rel="icon" type="image/png" sizes="16x16" href="../images/profil.png">
     
 	<script>
@@ -74,11 +75,31 @@
 		  	echo "<p style='text-align:center'> Bonjour ".$_SESSION['utilisateur']['nom']." ".$_SESSION['utilisateur']['prenom']."</p>";
             		  	}
 		  ?>
-		  <a href="../utilisateur/favoris.php">Mes Favoris</a>
-		  <a href="../utilisateur/abonnement.php">Mes Abonnements</a>
+		  <a href="../utilisateur/favoris.php" id="fav">Mes Favoris</a>
+		  <a href="../utilisateur/abonnement.php" id="abon">Mes Abonnements</a>
 		  <a href="../utilisateur/parier.php">Parier</a>
 		  <a href="../bd.php">Base de Données</a>
 
+      <script>
+        loged = <?php if(isset($_SESSION['utilisateur'])){ echo "true"; }else{ echo "false";}?>;
+        if(!loged){
+           $("#fav").click(function(event){
+            event.preventDefault();
+            let bool = confirm("Vous devez être connecté pour accéder à vos favoris, souhaitez vous être redirigé vers une page de connexion?");
+            if(bool){
+                window.location.href="../utilisateur/connexion.php";
+              }
+           });
+           $("#abon").click(function(event){
+            event.preventDefault();
+            let bool = confirm("Vous devez être connecté pour accéder à vos abonnements, souhaitez vous être redirigé vers une page de connexion?");
+            if(bool){
+                window.location.href="../utilisateur/connexion.php";
+              }
+           })
+        }
+       
+      </script>
 		  <?php
 		  if (!isset($_SESSION['utilisateur'])){
 		  	echo '<a href="../utilisateur/inscription.php"> Inscription </a>';
@@ -135,6 +156,13 @@
     </div>
     <div class="p-2">
     <h1 id="pilotes_title"> <?php echo $infos["forename"]." ".$infos["surname"];?></h1>
+    </div>
+    <div class="p-2">
+      <button class="btn btn-outline-danger" id="like">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16" id="coeur">
+            <path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"/>
+          </svg>
+      </button>
     </div>
     </div>
 	
@@ -221,37 +249,45 @@
     </div>
 	
 	
-<!--
+    <script>
+          let loged = <?php if(isset($_SESSION["utilisateur"])){
+            $q = "SELECT COUNT(*) FROM liker_pilote WHERE liker_pilote.email_adress='".$_SESSION["utilisateur"]["email_adress"]."' AND liker_pilote.driverId=".$infos["driverId"];
+            $rep = $bdd -> query($q); $ans = $rep -> fetch(); if($ans[0]>0){ $liked = "true";} else{ $liked="false";}
+              echo "true";
+          }
+          else{
+            echo "false";
+          }
+          ?>;
+          let liked = <?php if(isset($liked)){ echo $liked; }else{ echo "false";} ?>;
+          if(liked){
+            $("#like").attr("class", "btn btn-danger");
+          }
 
-        <div class="container-fluid" id="footer">
-            <div class="row justify-content-between">
-                <div class="col-lg-2">
-                        <button class="btn btn-light" id="share">
-                            <div class="row">
-                                <div class="col-sm-4"> 
-                                    <img src="../images/fia.jpg"> 
-                                </div>
-                                <div class="col-sm-8">
-                                    <p> Partager </p>
-                                </div>        
-                            </div>
-                        </button>
-                </div>
-				   <div class="col-lg-2" id='right-btn'>
-                        <button class="btn btn-light" id="like">
-                            <div class="row">
-                                <div class="col-sm-4"> 
-                                    <img src="../images/fia.jpg"> 
-                                </div>
-                                <div class="col-sm-8">
-                                    <p> Aimer </p>
-                                </div>    
-                            </div>
-                        </button>
-                </div>
-        </div>
-		
-		-->
+          let email = "<?php if(isset($_SESSION["utilisateur"])){ echo $_SESSION["utilisateur"]["email_adress"];}else{ echo "none";}  ?>";
+          let id = <?php echo $infos["driverId"]; ?>;
+          if(loged){
+            $("#like").click(function(){
+              like(email, id, liked);
+              if(liked){
+                liked = false;
+                $("#like").attr("class", "btn btn-outline-danger");
+              }
+              else{
+                liked = true;
+                $("#like").attr("class", "btn btn-danger");
+              }
+            });
+          }
+          else{
+            $("#like").click(function(){
+              let bool = confirm("Vous devez être connecté pour aimer un pilotes, souhaitez vous être redirigé vers une page de connexion?");
+              if(bool){
+                window.location.href="../utilisateur/connexion.php";
+              }
+            })
+          }
+        </script>
     
 <!-- FOOTER -->
 
