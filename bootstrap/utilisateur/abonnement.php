@@ -17,13 +17,13 @@
         require("../fonction.php");
         $bdd = getBD();
         // On va générer les abonnements du client connecté = récupération de l'id Session
-        if(!isset($_SESSION['client']['id'])){ 
+        if(!isset($_SESSION['utilisateur']['email_adress'])){ 
         //   echo "<meta http-equiv='refresh'  content='0; URL=../accueil.php'>";
-         //   die("Vous n'êtes pas censé arriver ici, retour page d'accueil");
-            echo "autorisation exceptionnelle"; 
+            die("Vous n'êtes pas censé arriver ici, retour page d'accueil");
+           
         } 
         else{
-            $id=$_SESSION['client']['id'];  // ou email_adress et il ne reste plus qu'à utiliser $id dans les requêtes ci-dessous
+            $id=$_SESSION['utilisateur']['email_adress'];  // ou email_adress et il ne reste plus qu'à utiliser $id dans les requêtes ci-dessous
         }
     ?>
 
@@ -87,11 +87,11 @@
 
 		  <?php
 		  if (!isset($_SESSION['utilisateur'])){
-		  	echo '<a href="./utilisateur/inscription.php"> Inscription </a>';
-		  	echo '<a href="./utilisateur/connexion.php"> Connexion </a>';
+		  	echo '<a href="./inscription.php"> Inscription </a>';
+		  	echo '<a href="./connexion.php"> Connexion </a>';
 		  	}
 		  else{
-		  	echo '<a href="./utilisateur/deconnexion.php"> deconnexion </a>';
+		  	echo '<a href="./deconnexion.php"> deconnexion </a>';
 		  	}
 		  	
 		  ?>

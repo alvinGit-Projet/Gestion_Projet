@@ -40,21 +40,8 @@
             }
         }
         else{
-    //        die("Vous devez être connecté pour accéder à cette page");
-    echo "connexion exceptionnelle";
-            $query1 = "SELECT liker_pilote.driverId FROM liker_pilote WHERE liker_pilote.email_adress='a'";
-            $query2 = "SELECT liker_constructor.constructorId FROM liker_constructor WHERE liker_constructor.email_adress='a'";
-
-            $statement1 = $bdd -> prepare($query1); $statement2 = $bdd -> prepare($query2);
-
-            $rep1 = $statement1 -> execute(); $rep2 = $statement2 -> execute();
-            if($rep1 && $rep2){
-                $pilotes=$statement1 -> fetchAll();
-                $constructeurs=$statement2 -> fetchAll();
-            }
-            else{
-                die("smth went wrong");
-            }
+           die("Vous devez être connecté pour accéder à cette page");
+  
         }
     ?>
 
@@ -140,14 +127,13 @@
            <div class="row">
                <div class="col-lg-6 d-flex justify-content-center" id="col1">
 
-                </div>
                    <?php
                        $nb_pilotes=count($pilotes);
    					if($nb_pilotes ==0){
    						echo "<center><p style='text-align:center'>Aucun favoris pour l'instant</p></center>";
    					}
    					else{
-               echo "<div class='container'> ";
+               echo "<div class='container'>";
                        for($i=0; $i<$nb_pilotes; $i++){
                            $query = "SELECT drivers.forename, drivers.surname, drivers.url_photo FROM drivers WHERE drivers.driverId=".$pilotes[$i]["driverId"];
                            $statement = $bdd -> prepare($query); $ans = $statement -> execute(); $pilote = $statement -> fetch();
