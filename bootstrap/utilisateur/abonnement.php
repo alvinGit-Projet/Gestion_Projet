@@ -164,46 +164,53 @@
     ?>
 
 
-
+<div class="d-flex flex-row" id="title">
+    <div class="p-2">
+    <h1 id="pilotes_title"> Mes Abonnements </h1>
+    </div>
+    </div>
 
 
  
     <div class="container" id ="abo">
         <div class="row">
             <div class="col-lg-6 abonnement">
-                <h2> News Letter </h2>
+               <h2> News Letter </h2>
                 <form method="post">
-                    <input type="submit" id="nw" name="nw" value="Statut :<?php $rep = $bdd -> query("SELECT utilisateur.news_letter FROM utilisateur WHERE utilisateur.email_adress=1");   $ans = $rep-> fetch();$bool = $ans[0];
-                            if(!$bool){echo "\nNon abonné";}else{echo "\nabonné";}// pareil pour email adress on remplace par $_SESSION....    ?>">
+                    <input type="submit" id="nw" name="nw" value="<?php $rep = $bdd -> query("SELECT utilisateur.news_letter FROM utilisateur WHERE utilisateur.email_adress=1");   $ans = $rep-> fetch();$bool = $ans[0];
+                            if(!$bool){echo "Non abonné";}else{echo "abonné";}// pareil pour email adress on remplace par $_SESSION....    ?>">
                       <?php    if($bool){ echo "<style> #nw{background-color:lightgreen; border-radius:20px; width:100px; margin:40px 0; margin-left:35%;} </style>";} else{ echo "<style> #nw{background-color:red;  border-radius:20px; width:100px;margin:40px 0; margin-left:35%;} </style>"; }   ?>  
                    
                 </form>
-
-                <h3> Description : </h3>
-                <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam cum nesciunt eos nam tempora, possimus ipsum deleniti explicabo inventore
-                     id reprehenderit optio perspiciatis dolorem aspernatur tenetur facere debitis! Nihil, necessitatibus.
-                </p>
             </div>
 
 
             <div class="col-lg-6 abonnement">
                 <h2> Actualités saison en cours (<?php $rep = $bdd -> query("SELECT seasons.year FROM seasons ORDER BY seasons.year DESC LIMIT 1"); $ans = $rep->fetch(); echo $ans[0];?>)</h2>
-
-
-
                 <form method="post">
-                    <input type="submit" id="actu-saison" name="actu" value="Statut :<?php $rep = $bdd -> query("SELECT abonnement.year FROM abonnement WHERE abonnement.email_adress=1 AND abonnement.year=(SELECT seasons.year FROM seasons ORDER BY seasons.year DESC LIMIT 1)"); $ans = $rep-> fetch();
-                        if($ans==""){echo "\nNon abonné"; $bool=FALSE;}else{$bool=TRUE; echo "\nabonné";} // pour email_adresse on remplace par $_SESSION['client']['email_adress'] récupéré au moment de la connection  ?> ">  
+                    <input type="submit" id="actu-saison" name="actu" value="<?php $rep = $bdd -> query("SELECT abonnement.year FROM abonnement WHERE abonnement.email_adress=1 AND abonnement.year=(SELECT seasons.year FROM seasons ORDER BY seasons.year DESC LIMIT 1)"); $ans = $rep-> fetch();
+                        if($ans==""){echo "Non abonné\n"; $bool=FALSE;}else{$bool=TRUE; echo "abonné";} // pour email_adresse on remplace par $_SESSION['client']['email_adress'] récupéré au moment de la connection  ?> ">  
                <?php         if($bool){ echo "<style> #actu-saison{background-color:lightgreen;  border-radius:20px; width:100px; margin:40px 0; margin-left:35%;} </style>";} else{ echo "<style> #actu-saison{background-color:red; border-radius:20px; width:100px; margin:40px 0; margin-left:35%;} </style>"; }   ?> 
                     
-                    <h3> Description : </h3>
-                    <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Totam cum nesciunt eos nam tempora, possimus ipsum deleniti explicabo inventore
-                        id reprehenderit optio perspiciatis dolorem aspernatur tenetur facere debitis! Nihil, necessitatibus.
-                    </p>
             </div>
         </div>
     </div>
 
+    <style>
+      input[type=submit]{
+        height:60px;
+      }
+      input[type=submit]:hover{
+        border: 3px solid black;
+        opacity: 0.8;
+      }
+      .abonnement form{
+        margin-bottom: 100px;
+      }
+      h2{
+        text-align: center;
+      }
+      </style>
 
 
 
