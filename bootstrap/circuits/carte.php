@@ -3,8 +3,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
-    <link rel="stylesheet" href="../style_in.css" type="text/css">
-		<link rel="stylesheet" href="carte.css" type="text/css">
+
+    <link rel="stylesheet" href="carte.css" type="text/css">
 
 	  <title>Circuits</title>
 
@@ -136,7 +136,7 @@
     <button type="button" class="btn btn-dark" onclick="window.location='circuits.php'"> Recherche Par Liste</button>
     </div>
 
-<div id="map">
+<div id="map" >
 </div>
 
 <!-- FOOTER -->
@@ -167,6 +167,7 @@
         <!--Grid column-->
         <div class="col-lg-3 col-md-6 mb-4 mb-md-0">
           <h5 class="text-uppercase">Notre Formation</h5>
+
           <ul class="list-unstyled">
             <li>
               <a href="https://ufr6.www.univ-montp3.fr/fr/licence_miashs" class="text-white"><i class="fas fa-at fa-fw fa-sm me-2"></i> La Licence MIASHS</a>
@@ -174,6 +175,9 @@
             <li>
               <a href="https://www.univ-montp3.fr/" class="text-white"><i class="fas fa-book fa-fw fa-sm me-2"></i>L'Université Paul Valéry </a>
             </li>
+
+
+
           </ul>
         </div>
         <!--Grid column-->
