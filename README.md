@@ -22,7 +22,9 @@ La gestion de la base de données et la création d’une interface fluide et in
 
 ### Lien du Site Web et du Compte rendu. 
 
-_Mise en ligne en cours_
+[Simplonline](http://www.simplonline.com)
+
+Rendez vous sur [l'écurie des Statistiques.fr](https://lecurie-des-statistiques.fr/index.php)!
 
 ## Auteurs 
 
@@ -30,6 +32,7 @@ Ce projet est issu d'une collaboration entre Lucas Martinez, Alvin Vedel et Alya
 
 
 ## Remerciements
+Nous remercions nos professeurs Mme.Bringay et Mme. Patel de l'université Paul Valéry de nous avoir accompagné durant la réalisation de ce projet. 
 
 
 
