@@ -22,9 +22,7 @@ La gestion de la base de données et la création d’une interface fluide et in
 
 ### Lien du Site Web et du Compte rendu. 
 
-[Simplonline](http://www.simplonline.com)
-
-Rendez vous sur [l'écurie des Statistiques.fr](https://lecurie-des-statistiques.fr/index.php)!
+Rendez vous sur [l'écurie des Statistiques ](https://lecurie-des-statistiques.fr/index.php)!
 
 ## Auteurs 
 
