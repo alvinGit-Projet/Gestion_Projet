@@ -7,9 +7,11 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="./liker.js"></script>
+   
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
 	  <link rel="stylesheet" href="../style_in.css" type="text/css">
-    <link rel="icon" type="image/png" sizes="16x16" href="../images/profil.png">
+     <script src="./graphiques.js"></script>
     
 	<script>
 	/* Set the width of the sidebar to 250px and the left margin of the page content to 250px */
@@ -265,7 +267,8 @@
           }
 
           let email = "<?php if(isset($_SESSION["utilisateur"])){ echo $_SESSION["utilisateur"]["email_adress"];}else{ echo "none";}  ?>";
-          let id = <?php echo $infos["driverId"]; ?>;
+            let id = <?php echo $infos["driverId"]; ?>;
+
           if(loged){
             $("#like").click(function(){
               like(email, id, liked);
@@ -288,6 +291,132 @@
             })
           }
         </script>
+
+<div class="container"> 
+  <div class="row">
+    <div class="col-lg-3 bd">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span id="evo">Graphiques évolutifs</span> 
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <button class='dropdown-item' id="btn-vic"> Victoire par saison </button>
+          <button class='dropdown-item' id='btn-pod'> Podium par saison </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 bd">
+      <div class="row">
+        <div class="col-lg-8" id="ponc">
+          <div class="dropdown">
+            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <span id="ponct">Graphiques Ponctuels</span> 
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+              <button class='dropdown-item' id="status"> Status </button>
+              <button class='dropdown-item' id="classement"> Classements </button>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4" id="saison">
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <span id="sais">Saison</span> 
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <?php 
+            $q = "SELECT DISTINCT races.year FROM races, results, drivers WHERE races.raceId=results.raceId AND results.driverId=drivers.driverId AND drivers.driverId=".$infos["driverId"]." ORDER BY races.year DESC";
+            $rep = $bdd -> query($q); $year = $rep -> fetchAll();
+            for($i=0; $i<count($year); $i++){
+              echo "<button class='dropdown-item year'>".$year[$i][0]."</button>";
+            }
+
+          ?>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+
+<div class="graphique" id="graph1">
+  <canvas id="chart"></canvas>
+</div>
+
+<style>
+  .graphique{
+    height: 300px;
+    width: 60%;
+    margin: 40px auto;
+  }
+  #chartV{
+    background-color: lightblue;
+  }
+  #saison{
+    display:none;
+    padding-left:0;
+    margin-left:0;
+  }
+  .bd {
+    padding: 0 10px;
+  }
+  #ponc{
+    margin-right:0;
+    padding-right:0;
+  }
+
+</style>
+
+<script>
+id =<?php echo $infos["driverId"]; ?>;
+
+$("#btn-vic").click(function(){
+  nbVicParSaison(id);
+  $("#saison").css("display", "none");
+  $("#evo").html("Evolution des victoires");
+  $("#ponct").html("Graphiques ponctuels");
+
+ // $("#graph1").css("display", "block");
+});
+$("#btn-pod").click(function(){
+  nbPodParSaison(id);
+  $("#saison").css("display", "none");
+  $("#evo").html("Evolution des Podiums");
+  $("#ponct").html("Graphiques ponctuels");
+//   $("#graph2").css("display", "block");
+});
+
+$("#status").click(function(){
+  status(2022);
+  $("#saison").css("display", "block");
+  $("#ponct").html("Status de la saison : ");
+});
+$(".year").click(function(){
+  $("#sais").html($(this).html());
+  $("#evo").html("Graphiques évolutifs");
+  
+  let type = $("#ponct").text();
+  if(type=="Status de la saison : "){
+     status($(this).html());
+  }
+  else if(type=="Classements de la saison : "){
+    classement($(this).html()); 
+  }
+})
+$("#classement").click(function(){
+  classement(2022);
+  $("#saison").css("display", "block");
+  $("#evo").html("Graphiques évolutifs");
+  $("#ponct").html("Classements de la saison : ");
+})
+
+
+</script>
+
+
+
     
 <!-- FOOTER -->
 

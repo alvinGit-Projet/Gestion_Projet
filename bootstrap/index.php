@@ -279,7 +279,7 @@
 
 
 <center>
-<div class="graphique" >
+<div class="graphique2" >
   <canvas id="graph1"></canvas>
 </div>
 </center>
@@ -289,6 +289,15 @@
         <canvas id="graph2"></canvas>
     </div>
 </center>
+
+<style>
+.graphique2{
+  width: 60%;
+  margin-bottom: 60px;
+}
+
+
+</style>
 
 
 <!-- FOOTER -->

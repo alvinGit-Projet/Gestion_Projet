@@ -119,7 +119,7 @@
 	
 <!-- NOTRE FORM -->
 
-
+<div id="form">
 <section class="vh-100 bg-image">
   <div class="mask d-flex align-items-center h-100 gradient-custom-3">
     <div class="container h-100">
@@ -135,7 +135,7 @@
                   <input type="text" id="form3Example1cg" class="form-control form-control-lg" name="n" 
 				  value="<?php if (isset($_GET['n'])) {
             echo $_GET['n'];} 
-			else {echo "; } ?>" />
+			else {echo ""; } ?>" />
                   <label class="form-label" for="form3Example1cg">Nom</label>
                 </div>
 				
@@ -145,7 +145,7 @@
                   <input type="text" id="form3Example3cg" class="form-control form-control-lg" name="p" 
 				  value="<?php if (isset($_GET['p'])) {
             echo $_GET['p'];} 
-			else {echo "; } ?>"/>
+            else {echo ""; } ?>" />
                   <label class="form-label" for="form3Example3cg"> Prénom</label>
                 </div>
 				
@@ -153,7 +153,7 @@
                   <input type="email" id="form3Example3cg" class="form-control form-control-lg" name="mail" 
 				  value="<?php if (isset($_GET['mail'])) {
             echo $_GET['mail'];} 
-			else {echo "; } ?>"/>
+            else {echo ''; } ?>" />
                   <label class="form-label" for="form3Example3cg"> Adresse Email</label>
                 </div>
 
@@ -161,7 +161,7 @@
                   <input type="password" id="form3Example4cg" class="form-control form-control-lg" name="mdp1" 
 				  value="<?php if (isset($_GET['mdp1'])) {
             echo $_GET['mdp1'];} 
-			else {echo "; } ?>"  />
+            else {echo ""; } ?>" />
                   <label class="form-label" for="form3Example4cg">Mot de Passe</label>
                 </div>
 
@@ -169,7 +169,7 @@
                   <input type="password" id="form3Example4cdg" class="form-control form-control-lg" name="mdp2" 
 				  value="<?php if (isset($_GET['mdp2'])) {
             echo $_GET['mdp2'];} 
-			else {echo "; } ?>"/>
+            else {echo ""; } ?>" />
                   <label class="form-label" for="form3Example4cdg"> Confirmer Votre Mot de Passe</label>
                 </div>
 
@@ -191,6 +191,7 @@
     </div>
   </div>
 </section>
+</div>
 
 
 

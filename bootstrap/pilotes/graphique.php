@@ -204,11 +204,9 @@ new Chart(graph2,  {
 </div>
 
 <div class="graphique" id="graph1">
-  <canvas id="chartV"></canvas>
+  <canvas id="chart"></canvas>
 </div>
-<div class="graphique" id="graph2">
-  <canvas id="chartP"></canvas>
-</div>
+
 
 
 
@@ -234,7 +232,6 @@ new Chart(graph2,  {
     margin-right:0;
     padding-right:0;
   }
-
 </style>
 
 
@@ -356,8 +353,6 @@ function reinitialiser(){
   $("#ponct").html("Graphiques ponctuels");
   $(".graphique").css("display", "none");
 }
-
-
 
 $("#btn-vic").click(function(){
   reinitialiser();
