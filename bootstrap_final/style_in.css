@@ -1,0 +1,425 @@
+body{
+	background-color: #141617;
+	margin: 0;
+	padding: 0;
+	width:auto;
+}
+
+.responsive {
+  width: 100%;
+  height: auto;
+}
+
+
+/*POLICE*/
+h1 {
+color: #ECECEC;
+font-family: ' Helvetica ', sans-serif;
+font-size: 75px; font-weight: bold;
+letter-spacing: -1px;
+line-height: 1;
+margin: 0 0 20px;
+text-align: center;
+text-shadow: black 2px 1px
+}
+
+#name_pilote{
+text-align: right;
+}
+
+h5{
+padding-bottom:5px;
+text-align: center;
+color: #ECECEC;
+}
+h4{
+padding-bottom:15px;
+
+}
+
+
+h2 {
+color: #ECECEC;
+font-family: 'Helvetica', sans-serif;
+font-weight: bold;
+font-size: 40px;
+line-height: 32px;
+margin: 0 0 55px;
+text-align: center;
+padding-top:35px;
+}
+
+h3 {
+color: #ECECEC;
+font-family: ' Helvetica ', sans-serif;
+font-size: 40px;
+font-weight: bold;
+padding-top:20px;
+padding-left:10px;
+padding-right:10px;
+line-height: 32px;
+margin: 0 0 55px;
+text-align: center;
+}
+
+
+p {
+color: #ECECEC;
+font-family: ' Helvetica ', sans-serif;
+
+font-size: 14px;
+line-height: 24px;
+margin-right:12px;
+margin-left:12px;
+margin-bottom:17px;
+text-align: justify;
+text-justify: inter-word;
+}
+
+.leaflet-tooltip-top {
+        margin-top: -15px;
+        // Valeur par défaut -6px
+    }
+
+#title{
+border-bottom: solid black 1px;
+}
+
+#title_not_ind{
+border-bottom: solid black 1px;
+}
+
+/*index*/
+.intro{
+	text-align: center;
+    padding:30px;
+	margin-bottom:0px;
+	margin-top:0;
+}
+
+.infos{
+    text-align: center;
+        padding:40px;
+        height:auto;
+    	margin-bottom:0px;
+    	margin-top:0;
+}
+
+.list-group-item list-group-item-dark{
+    	background-color: #141617;
+}
+
+/*abo*/
+#abo{
+margin-top:20px;
+}
+
+
+/*PILOTE */
+
+#p_indi{
+height:100px;
+width:100px;
+border: 0.5px solid #b4b4b4;
+border-radius:50px;
+margin-left:30px;
+margin-top:10px;
+margin-bottom:10px;
+filter: drop-shadow(10px 10px 10px black);}
+
+#gp_indi{
+height:80px; width:120px; border-radius: inherit;
+border: 0.5px solid #b4b4b4;
+margin-left:30px;
+margin-top:10px;
+margin-bottom:10px;
+filter: drop-shadow(10px 10px 10px black);}
+
+#img_cir_ind{
+height:200px; width:230px;
+border-radius: 0;
+padding-bottom:15px;
+border:none;
+filter: drop-shadow(10px 10px 10px black);
+}
+
+#circuits_indi{
+height:120px; width:150px; border-radius: 0;
+margin-left:30px;
+border:none;
+filter: drop-shadow(10px 10px 10px black);}
+
+#const_indi{
+height:80px; width:80px;
+border-radius: 0;
+border:none;
+margin-left:30px;
+margin-top:10px;
+margin-bottom:10px;
+filter: drop-shadow(10px 10px 10px black);}
+
+
+#pilotes_title{
+padding-top:20px;
+padding-left:35px;
+color: #888c90;
+}
+
+#code{
+color: #64040C;
+font-size: 55px;
+line-height: 1;
+text-shadow: black 2px 1px
+padding-top:15px;
+padding-bottom:3px;
+}
+
+#stats{
+	padding-bottom:15px;
+	color:WHITE;
+	text-align:center;
+	height:auto;
+}
+
+
+#courses{
+	color: #ECECEC;
+	text-align:center;
+	padding-top:20px;
+	padding-bottom:20px;
+}
+
+
+li #lien{
+color: #ECECEC;
+text-decoration:none;
+ text-shadow: black 2px 1px;
+ }
+
+#pilote-list{ text-align:left; margin-left:45%; } 
+#pilote-list li{list-style-type:disc; }
+#lien{ text-decoration:none; color:white; } 
+#linked{margin-top:30px;}
+
+
+li {list-style:none; color: #ECECEC;}
+
+
+#image_pilote{
+	max-width:100%;
+	height:auto;
+}
+
+#bio{
+	color: #ECECEC;
+	padding-top:20px;
+	padding-bottom:20px;
+	height:auto;
+	width:100%;
+	border-top: solid black 1px;
+}
+
+#div_wiki{
+padding-top:30px;
+padding-bottom:30px;
+text-align:right;
+}
+
+#wiki{
+    padding-left: 20px;
+    padding-top:10px;
+	height:60px;
+	with:60px;
+}
+/*circuit*/
+
+
+
+/*FAVORIS */
+#favs{
+	padding-top:30px;
+	padding-bottom:30px;
+}
+
+#favs h2 {
+	text-align:center;
+}
+
+
+
+#head{
+	background-color: #b00f00;
+
+}
+
+
+/*????? */
+.logo{
+	height:50px;
+	width:90px;
+	border-radius:10px;
+	object-fit: cover;
+	display: block;
+	margin-bottom:40px;
+	margin-left:30%;
+}
+.logo:hover{ height:80px; width:110px;}
+
+
+
+/*PARIS SPORTIF  */
+#paris{
+	background-color:#000008;
+	padding-bottom:30px;
+	padding-top:30px;
+}
+
+
+
+#téléchargement{
+	background-color:#a70c27;
+	padding-bottom:10%;
+	padding-top:10%;
+}
+
+#tel{
+    padding-top:15px;
+    padding-bottom:15px;
+}
+
+btn_telechargement{
+   text-align: center;
+  border: 1px solid coral;
+               height: 40vh;
+}
+
+
+
+.darkmode{
+    color: #141617;
+}
+
+/*BASE DE DONNES */
+#bd-descr{
+    width: 100%;
+    padding: 0 25%;
+	padding-bottom:10%;
+
+}
+#bd-descr h2{
+    margin: 50px 0 35px 0;
+	text-align:center;
+}
+#tableau{
+    color: black;
+}
+
+#th{
+font-weight:bold;
+}
+#td{
+    text-align: center;
+    font-size: 1.1em;
+}
+
+
+
+/*INSCRIPTIONS CONNEXION */
+#utilisateur{
+	margin-top:400px;
+}
+
+.card{
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+#form{
+  padding-bottom: 400px;
+}
+
+
+
+
+#carouselExampleIndicators{
+background-color: #202020;
+}
+
+#carouselExampleIndicators img {
+	border-radius:10px;
+}
+
+#carouselExampleIndicators{
+	width: 70%;
+	margin: 20px auto;
+}
+
+
+
+
+
+
+
+/* The sidebar menu */
+.sidebar {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Stay on top */
+  top: 0;
+  left: 0;
+  background-color: #111; /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /* 0.5 second transition effect to slide in the sidebar */
+}
+
+/* The sidebar links */
+.sidebar a {
+  padding: 8px 8px 8px 32px;
+  text-decoration: none;
+  font-size: 20px;
+  color: #818181;
+  display: block;
+  transition: 0.3s;
+}
+
+/* When you mouse over the navigation links, change their color */
+.sidebar a:hover {
+  color: #f1f1f1;
+}
+
+/* Position and style the close button (top right corner) */
+.sidebar .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 34px;
+  margin-left: 50px;
+}
+
+/* The button used to open the sidebar */
+.openbtn {
+  font-size: 20px;
+  cursor: pointer;
+  background-color: #212529;
+  color: white;
+  padding: 0px 15px;
+  border: none;
+}
+
+.openbtn:hover {
+  background-color: #444;
+}
+
+/* Style page content - use this if you want to push the page content to the right when you open the side navigation */
+#main {
+  transition: margin-left .5s; /* If you want a transition effect */
+  padding: 20px;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidenav (less padding and a smaller font size) */
+@media screen and (max-height: 450px) {
+  .sidebar {padding-top: 15px;}
+  .sidebar a {font-size: 18px;}
+}
+
