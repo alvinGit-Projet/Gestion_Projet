@@ -1,0 +1,41 @@
+#menu{
+    margin-top: 50px;
+    border: 2px solid black;  
+    border-radius: 30px;
+    padding: 30px;  
+}
+.row button{
+    border-radius: 20px;
+    border: none;
+    background-color: white;
+    padding: 15px;
+}
+.row button:hover{
+    background-color:darkgrey;
+}
+.row input{
+    border-radius: 20px;
+    padding: 15px;
+}
+.row input:focus{
+    background-color: azure;
+}
+.annulation:hover{
+    background-color: crimson;
+    border: 3px solid lightgrey;
+}
+p{
+    color: black;
+    font-size: 1.2em;
+    padding-top: 30px;
+}
+.bottom{
+    padding: 30px;
+}
+.bottom button{
+    border: 2px solid lightgray;
+}
+#annulation:hover{
+    background-color: crimson;
+    border: 3px solid lightgrey;
+}
