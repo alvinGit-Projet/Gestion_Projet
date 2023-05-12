@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le : mer. 10 mai 2023 à 17:55
+-- Généré le : ven. 12 mai 2023 à 17:35
 -- Version du serveur : 8.0.31
 -- Version de PHP : 8.0.26
 
@@ -1137,13 +1137,15 @@ INSERT INTO `liker_pilote` (`driverId`, `email_adress`, `date`) VALUES
 
 DROP TABLE IF EXISTS `message`;
 CREATE TABLE IF NOT EXISTS `message` (
-  `topic_id` int NOT NULL,
   `email_adress` varchar(100) NOT NULL,
   `contenu` text NOT NULL,
   `message_id` int NOT NULL AUTO_INCREMENT,
+  `topic_id` int NOT NULL,
+  `message_prec_id` int NOT NULL,
+  `date_msg` date NOT NULL,
   PRIMARY KEY (`message_id`),
-  KEY `topic_id` (`topic_id`),
-  KEY `email_adress` (`email_adress`)
+  KEY `email_adress` (`email_adress`),
+  KEY `topic_id_2` (`topic_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
 -- --------------------------------------------------------
@@ -10762,6 +10764,7 @@ CREATE TABLE IF NOT EXISTS `reaction` (
   `type` set('like','dislike','surprise','peur','colere','') NOT NULL,
   `message_id` int NOT NULL,
   `email_adress` varchar(100) NOT NULL,
+  `date_reac` date NOT NULL,
   KEY `message_id` (`message_id`),
   KEY `email_adress` (`email_adress`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
@@ -16292,6 +16295,7 @@ CREATE TABLE IF NOT EXISTS `topic` (
   `titre` varchar(100) NOT NULL,
   `email_adress` varchar(100) NOT NULL,
   `mots_cles` text NOT NULL,
+  `date_topic` date NOT NULL,
   PRIMARY KEY (`topic_id`),
   KEY `email_adress` (`email_adress`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
