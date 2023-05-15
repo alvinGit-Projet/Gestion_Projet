@@ -39,3 +39,20 @@ p{
     background-color: crimson;
     border: 3px solid lightgrey;
 }
+.topic{
+    padding: 15px;
+    margin: 15px;
+    border-radius: 30px;
+    background-color: lightgray;
+}
+h1{
+    text-align: center;
+    text-shadow: none;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: bold;
+}
+.message{
+    border: 1px solid black;
+    border-radius: 30px;
+    padding: 50px;
+}

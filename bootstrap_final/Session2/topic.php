@@ -8,10 +8,10 @@ $bdd = getBD();
 
 $q = "SELECT * FROM topic WHERE topic.topic_id=".$_GET["id"];
 $rep = $bdd -> query($q); $topic = $rep-> fetch();
-$contenu = "SELECT * FROM message WHERE message.message_prec_id=-1 AND message.topic_id=".$topic["topic_id"];
+$contenu = "SELECT * FROM message, utilisateur WHERE message.email_adress=utilisateur.email_adress AND message.message_prec_id=-1 AND message.topic_id=".$topic["topic_id"];
 $rep = $bdd -> query($contenu); $principal = $rep -> fetch();
-$reponses = "SELECT * FROM message WHERE message.message_prec_id=".$principal["message_id"];
-$rep = $bdd -> query($reponses); $reponse = $rep -> fetchAll();
+$reponses = "SELECT * FROM message, utilisateur WHERE message.email_adress=utilisateur.email_adress AND message.message_prec_id=".$principal["message_id"];
+$rep = $bdd -> query($reponses); $reponse = $rep -> fetchAll();  
 ?>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -121,7 +121,7 @@ $rep = $bdd -> query($reponses); $reponse = $rep -> fetchAll();
 	</nav>
 
     <div class="container">
-        <div class="row">
+        <div class="row topic">
             <div class="col-lg-3">
                 <button> Accueil Forum </button>
             </div>
@@ -136,6 +136,40 @@ $rep = $bdd -> query($reponses); $reponse = $rep -> fetchAll();
             </div>
         </div>
     </div>
+
+    <h1> <?php echo $topic["titre"]; ?> </h1>
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-lg-2">
+            </div>
+            <div class="col-lg-8">
+               <div class="row message">
+                    <div class="col-lg-3">
+                        <p> <?php echo $principal["prenom"]; ?> </p>
+                        <img src="" alt="photo correspondate au rang">
+                    </div>
+                    <div class="col-lg-9">
+                        <p> <?php echo $principal["contenu"]; ?> </p>
+                    </div>
+                </div>
+                <div class="container"> <!-- Bloc pour les reponses --> 
+                    <div class="col-lg-2"> <!-- Ecart pour distinguer réponses -->
+                    </div>
+                    <div class="col-lg-10">
+                        <?php
+                        for($i=0; $i<count($reponse); $i++){
+                            echo "<div class='row message'><div class='col-lg-3'><p>".$reponse[$i]["prenom"]."</p><img src='' alt='photo correspondate au rang'>
+                            </div><div class='col-lg-9'><p>".$reponse[$i]["contenu"]." </p></div></div>";
+                        }
+                        ?>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-2">
+            </div>
+
+
 
 
     
