@@ -11,7 +11,48 @@ $rep = $bdd -> query($q); $topic = $rep-> fetch();
 $contenu = "SELECT * FROM message, utilisateur WHERE message.email_adress=utilisateur.email_adress AND message.message_prec_id=-1 AND message.topic_id=".$topic["topic_id"];
 $rep = $bdd -> query($contenu); $principal = $rep -> fetch();
 $reponses = "SELECT * FROM message, utilisateur WHERE message.email_adress=utilisateur.email_adress AND message.message_prec_id=".$principal["message_id"];
-$rep = $bdd -> query($reponses); $reponse = $rep -> fetchAll();  
+$rep = $bdd -> query($reponses); $reponse = $rep -> fetchAll();
+
+
+function associer_logo($niveau){
+  switch($niveau){
+    case 0:
+      return "./logo_rang/niveau0.jpg";
+      break;
+    case 1: 
+      return "./logo_rang/niveau1.png";
+      break;
+    case 2: 
+      return "./logo_rang/niveau2.png";
+      break;
+    case 3: 
+      return "./logo_rang/niveau3.png";
+      break;
+    case 4: 
+      return "./logo_rang/niveau4.jpg";
+      break;
+    case 5: 
+      return "./logo_rang/niveau5.png";
+      break;
+    case 6: 
+      return "./logo_rang/niveau6.jpg";
+      break;
+    case 7: 
+        return "./logo_rang/niveau7.jpg";
+        break;
+    case 8: 
+      return "./logo_rang/niveau8.png";
+      break;
+    case 9: 
+      return "./logo_rang/niveau9.png";
+      break;
+    case 10: 
+      return "./logo_rang/niveau10.png";
+      break;
+  }
+}
+
+
 ?>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -123,7 +164,7 @@ $rep = $bdd -> query($reponses); $reponse = $rep -> fetchAll();
     <div class="container">
         <div class="row topic">
             <div class="col-lg-3">
-                <button> Accueil Forum </button>
+                <button onclick="window.location.href='./forum.php'"> Accueil Forum </button>
             </div>
             <div class="col-lg-3">
                 <button> Topics similaire </button>
@@ -146,21 +187,40 @@ $rep = $bdd -> query($reponses); $reponse = $rep -> fetchAll();
             <div class="col-lg-8">
                <div class="row message">
                     <div class="col-lg-3">
-                        <p> <?php echo $principal["prenom"]; ?> </p>
-                        <img src="" alt="photo correspondate au rang">
+                        <p class="contenu"> <?php echo $principal["prenom"]; ?> </p>
+                      <img src="<?php echo associer_logo($principal["rang"]); ?>" alt="photo correspondate au rang">
                     </div>
                     <div class="col-lg-9">
+                      <div class="row contenu">
                         <p> <?php echo $principal["contenu"]; ?> </p>
+                      </div>
+                      <div class='row align-items-end'> 
+                        <div class='col-lg-3'> 
+                          <button> Aimer </button> 
+                        </div>
+                        <div class='col-lg-3'> 
+                          <button> Détester </button>
+                        </div> 
+                        <div class='col-lg-3'>
+                          <button> Surpris </button> 
+                        </div> 
+                        <div class='col-lg-3'> 
+                          <button> Peur </button> 
+                        </div>
+                      </div>
                     </div>
+                    </div>
+                  </div>
                 </div>
                 <div class="container"> <!-- Bloc pour les reponses --> 
-                    <div class="col-lg-2"> <!-- Ecart pour distinguer réponses -->
-                    </div>
-                    <div class="col-lg-10">
+                <!--    <div class="col-lg-2">  Ecart pour distinguer réponses 
+                    </div>  -->
+                    <div class="col-lg-10 offset-lg-2" id="rep">
                         <?php
                         for($i=0; $i<count($reponse); $i++){
-                            echo "<div class='row message'><div class='col-lg-3'><p>".$reponse[$i]["prenom"]."</p><img src='' alt='photo correspondate au rang'>
-                            </div><div class='col-lg-9'><p>".$reponse[$i]["contenu"]." </p></div></div>";
+                            echo "<div class='row message'><div class='col-lg-3'><p>".$reponse[$i]["prenom"]."</p><img src='".associer_logo($reponse[$i]["rang"])."' alt='photo correspondate au rang'>
+                            </div><div class='col-lg-9'><div class='row'><p class='contenu'>".$reponse[$i]["contenu"]." </p></div><div class='row align-items-end'> <div class='col-lg-3'> <button> Aimer </button> </div>
+                            <div class='col-lg-3'> <button> Détester </button> </div> <div class='col-lg-3'> <button> Surpris </button> </div> <div class='col-lg-3'> <button> Peur </button> </div></div></div></div>";
                         }
                         ?>
                     </div>
@@ -168,10 +228,6 @@ $rep = $bdd -> query($reponses); $reponse = $rep -> fetchAll();
             </div>
             <div class="col-lg-2">
             </div>
-
-
-
-
     
 </body>
 </html>

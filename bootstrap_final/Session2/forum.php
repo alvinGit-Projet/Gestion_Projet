@@ -134,7 +134,7 @@
 
   <?php
 
-  $q = "SELECT utilisateur.prenom, topic.titre, message.contenu FROM utilisateur, topic, message WHERE utilisateur.email_adress=topic.email_adress AND message.message_prec_id=-1 AND message.topic_id=topic.topic_id AND message.email_adress=topic.email_adress LIMIT 3";
+  $q = "SELECT utilisateur.prenom, topic.titre, message.contenu, topic.topic_id FROM utilisateur, topic, message WHERE utilisateur.email_adress=topic.email_adress AND message.message_prec_id=-1 AND message.topic_id=topic.topic_id AND message.email_adress=topic.email_adress LIMIT 3";
   $rep = $bdd -> query($q); $data = $rep -> fetchAll();
   $q2 = "SELECT utilisateur.prenom, COUNT(message.message_id)+COUNT(reaction.message_id) AS interactions FROM utilisateur, message, reaction, topic WHERE ((utilisateur.email_adress=message.email_adress AND message.date_msg > CURRENT_TIMESTAMP-7)  OR (utilisateur.email_adress=reaction.email_adress AND reaction.date_reac > CURRENT_TIMESTAMP-7)) GROUP BY utilisateur.prenom ORDER BY interactions DESC LIMIT 3";
   $rep = $bdd -> query($q2); $contributeurs = $rep -> fetchAll();
@@ -149,15 +149,15 @@
         <!-- Topics -->
         <?php 
         if(count($data)>0){
-          echo "<div class='container'><div class='col-lg-9'>";
+          echo "<div class='container'><div class='row'><div class='col-lg-9'>";
           for($i=0; $i<count($data); $i++){
-            echo "<p>".$data[$i]["titre"]." par ".$data[$i]["prenom"]." : ".$data[$i]["contenu"]." </p>";
+            echo "<a href='./topic.php?id=".$data[$i]["topic_id"]."'><p>".$data[$i]["titre"]." par ".$data[$i]["prenom"]." : ".$data[$i]["contenu"]." </p></a>";
           }
-          echo "</div>  <div class='col-lg-3'> <h3> Principaux contributeurs : </h3>";
+          echo "</div> <div class='col-lg-3'> <h3> Principaux contributeurs : </h3>";
           for($i=0; $i<count($contributeurs); $i++){
             echo "<p>".($i+1)." : ".$contributeurs[$i]["prenom"]." (".$contributeurs[$i]["interactions"].") </p>";
           }
-          echo "</div></div>";
+          echo "</div></div></div>";
         }
         else{
           echo "<h3> Il n'y a pas eu d'activité récemment... Lancez un topic ! </h3>";
